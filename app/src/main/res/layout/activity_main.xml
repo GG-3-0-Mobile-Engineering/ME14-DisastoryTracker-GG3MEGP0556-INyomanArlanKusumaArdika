@@ -25,13 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello World!"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:gravity="center"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_disaster_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            tools:listitem="@layout/item_row_disaster"
             sothree:layout_constraintTop_toTopOf="parent"
             sothree:layout_constraintBottom_toBottomOf="parent"
             sothree:layout_constraintStart_toStartOf="parent"

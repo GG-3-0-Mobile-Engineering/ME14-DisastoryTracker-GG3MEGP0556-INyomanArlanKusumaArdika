@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("kotlin-parcelize")
 }
 
 android {
@@ -42,6 +43,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.10.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -51,6 +53,10 @@ dependencies {
     implementation "com.mapbox.maps:android:10.14.1"
 
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
 
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-geojson:5.9.0-alpha.1'
