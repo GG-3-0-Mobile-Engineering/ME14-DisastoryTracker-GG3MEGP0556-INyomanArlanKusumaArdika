@@ -1,27 +1,46 @@
 package com.frhanklin.disastory
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.frhanklin.disastory.api.ApiConfig
+import com.frhanklin.disastory.data.Region
 import com.frhanklin.disastory.data.response.DisasterItems
 import com.frhanklin.disastory.data.response.PetaBencanaReports
-import com.mapbox.geojson.Point
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
 
-    companion object {
-        private val TAG = "MainViewModel"
+    fun getThemeSettings() : LiveData<Boolean> {
+        return preferences.getThemeSetting().asLiveData()
     }
 
-    private  lateinit var center: Point
+    fun saveThemeSettings(darkModeState: Boolean) {
+        viewModelScope.launch {
+            preferences.saveThemeSetting(darkModeState)
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
+    }
+
 
     private val _disasterItemsArray = MutableLiveData<ArrayList<DisasterItems>>()
     val disasterItemsArray: LiveData<ArrayList<DisasterItems>> = _disasterItemsArray
+
+    private val _filter = MutableLiveData<String>()
+    val filter: LiveData<String> = _filter
+
+    private val _cityId = MutableLiveData<String>()
+    val cityId: LiveData<String> = _cityId
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -41,13 +60,23 @@ class MainViewModel : ViewModel() {
         _warningText.value = msg
     }
 
-    fun setCenter(center: Point) {
-        this.center = center
+
+    fun getCityId(): String {
+        return cityId.value ?: ""
     }
 
     fun getRecentDisaster() {
         setLoading(true)
-        val client = ApiConfig.getApiService().getReports()
+        val client = if (getFilter().isNotEmpty() && getCityId().isNotEmpty()) {
+            ApiConfig.getApiService().getReportsByLocationAndType(getCityId(), getFilter())
+        } else if (getFilter().isNotEmpty() && getCityId().isEmpty())  {
+            ApiConfig.getApiService().getReportsByType(getFilter())
+        } else if (getFilter().isEmpty() && getCityId().isNotEmpty()) {
+            ApiConfig.getApiService().getReportsByLocation(getCityId())
+        } else {
+            ApiConfig.getApiService().getReports()
+        }
+
         client.enqueue(object : Callback<PetaBencanaReports> {
             override fun onResponse(
                 call: Call<PetaBencanaReports>,
@@ -55,6 +84,7 @@ class MainViewModel : ViewModel() {
             ) {
                 setLoading(false)
                 if (response.isSuccessful) {
+                    _disasterItemsArray.value = ArrayList()
                     val responseBody = response.body()
                     val arrayNotEmpty = responseBody?.result?.objects?.output?.geometries?.isNotEmpty() as Boolean
                     if (arrayNotEmpty) {
@@ -73,10 +103,26 @@ class MainViewModel : ViewModel() {
             override fun onFailure(call: Call<PetaBencanaReports>, t: Throwable) {
                 setLoading(false)
                 setWarn(true, "Error fetching data")
-                Log.e(TAG, "onFailure: ${t.message}", )
+                Log.e(TAG, "onFailure: ${t.message}")
             }
 
         })
 
+    }
+
+    fun setFilter(type: String) {
+        this._filter.value = type
+        getRecentDisaster()
+    }
+
+    fun getFilter(): String {
+        return filter.value ?: ""
+    }
+
+
+    fun setLocation(c: Context, location: String) {
+        val regions = Region
+
+        _cityId.value = regions.getRegionCode(c, location)
     }
 }

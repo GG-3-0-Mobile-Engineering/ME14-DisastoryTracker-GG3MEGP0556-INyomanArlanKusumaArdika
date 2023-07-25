@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary_background">#FFF3F3F3</color>
+    <color name="primary_foreground">#FF000000</color>
+    <color name="primary_foreground_25">#99000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="disaster_fire">#FFFFA500</color>
+    <color name="disaster_flood">#FFADD8E6</color>
+    <color name="disaster_haze">#FFD3D3D3</color>
+    <color name="disaster_earthquake">#FF964B00</color>
+    <color name="disaster_volcano">#FFCF1020</color>
+    <color name="disaster_wind">#FFC0C0C0</color>
+
+    <color name="disastory_green">#FF00AA13</color>
 </resources>

@@ -1,4 +1,100 @@
 <resources>
     <string name="app_name">Disastory Tracker</string>
     <string name="desc_img_disaster">Disaster Image</string>
+    <string name="bottom_sheet_behavior">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+
+    <string name="hint_search">Cari di sini</string>
+    <string name="list_title">Informasi Bencana Terkini</string>
+    <string name="title_settings">Settings</string>
+    <string name="settings_nights_title">Dark Mode</string>
+    <string name="settings_nights_subtitle">Enable dark mode</string>
+    <string name="desc_btn_settings">Settings Button</string>
+
+    <string name="flood">flood</string>
+    <string name="haze">haze</string>
+    <string name="wind">wind</string>
+    <string name="earthquake">earthquake</string>
+    <string name="volcano">volcano</string>
+    <string name="fire">fire</string>
+
+    <string name="type_flood">Banjir</string>
+    <string name="type_haze">Kabut</string>
+    <string name="type_wind">Badai</string>
+    <string name="type_earthquake">Gempa Bumi</string>
+    <string name="type_volcano">Gunung Berapi</string>
+    <string name="type_fire">Kebakaran</string>
+
+    <string name="city_aceh">Aceh</string>
+    <string name="city_bali">Bali</string>
+    <string name="city_bangka_belitung">Kep. Bangka Belitung</string>
+    <string name="city_banten">Banten</string>
+    <string name="city_bengkulu">Bengkulu</string>
+    <string name="city_jawa_tengah">Jawa Tengah</string>
+    <string name="city_kalimantan_tengah">Kalimantan Tengah</string>
+    <string name="city_sulawesi_tengah">Sulawesi Tengah</string>
+    <string name="city_jawa_timur">Jawa Timur</string>
+    <string name="city_kalimantan_timur">Kalimantan Timur</string>
+    <string name="city_nusa_tenggara_timur">Nusa Tenggara Timur</string>
+    <string name="city_gorontalo">Gorontalo</string>
+    <string name="city_dki_jakarta">DKI Jakarta</string>
+    <string name="city_jambi">Jambi</string>
+    <string name="city_lampung">Lampung</string>
+    <string name="city_maluku">Maluku</string>
+    <string name="city_kalimantan_utara">Kalimantan Utara</string>
+    <string name="city_maluku_utara">Maluku Utara</string>
+    <string name="city_sulawesi_utara">Sulawesi Utara</string>
+    <string name="city_sumatera_utara">Sumatera Utara</string>
+    <string name="city_papua">Papua</string>
+    <string name="city_riau">Riau</string>
+    <string name="city_kepulauan_riau">Kepulauan Riau</string>
+    <string name="city_sulawesi_tenggara">Sulawesi Tenggara</string>
+    <string name="city_kalimantan_selatan">Kalimantan Selatan</string>
+    <string name="city_sulawesi_selatan">Sulawesi Selatan</string>
+    <string name="city_sumatera_selatan">Sumatera Selatan</string>
+    <string name="city_di_yogyakarta">DI Yogyakarta</string>
+    <string name="city_jawa_barat">Jawa Barat</string>
+    <string name="city_kalimantan_barat">Kalimantan Barat</string>
+    <string name="city_nusa_tenggara_barat">Nusa Tenggara Barat</string>
+    <string name="city_papua_barat">Papua Barat</string>
+    <string name="city_sulawesi_barat">Sulawesi Barat</string>
+    <string name="city_sumatera_barat">Sumatera Barat</string>
+    <string name="unknown">Tidak Diketahui</string>
+
+    <string-array name="city_names">
+        <item>@string/city_aceh</item>
+        <item>@string/city_bali</item>
+        <item>@string/city_bangka_belitung</item>
+        <item>@string/city_banten</item>
+        <item>@string/city_bengkulu</item>
+        <item>@string/city_jawa_tengah</item>
+        <item>@string/city_kalimantan_tengah</item>
+        <item>@string/city_sulawesi_tengah</item>
+        <item>@string/city_jawa_timur</item>
+        <item>@string/city_kalimantan_timur</item>
+        <item>@string/city_nusa_tenggara_timur</item>
+        <item>@string/city_gorontalo</item>
+        <item>@string/city_dki_jakarta</item>
+        <item>@string/city_jambi</item>
+        <item>@string/city_lampung</item>
+        <item>@string/city_maluku</item>
+        <item>@string/city_kalimantan_utara</item>
+        <item>@string/city_maluku_utara</item>
+        <item>@string/city_sulawesi_utara</item>
+        <item>@string/city_sumatera_utara</item>
+        <item>@string/city_papua</item>
+        <item>@string/city_riau</item>
+        <item>@string/city_kepulauan_riau</item>
+        <item>@string/city_sulawesi_tenggara</item>
+        <item>@string/city_kalimantan_selatan</item>
+        <item>@string/city_sulawesi_selatan</item>
+        <item>@string/city_sumatera_selatan</item>
+        <item>@string/city_di_yogyakarta</item>
+        <item>@string/city_jawa_barat</item>
+        <item>@string/city_kalimantan_barat</item>
+        <item>@string/city_nusa_tenggara_barat</item>
+        <item>@string/city_papua_barat</item>
+        <item>@string/city_sulawesi_barat</item>
+        <item>@string/city_sumatera_barat</item>
+    </string-array>
+
 </resources>

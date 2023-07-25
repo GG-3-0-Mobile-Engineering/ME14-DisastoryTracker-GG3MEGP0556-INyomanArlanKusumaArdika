@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_disaster"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp">
 
     <ImageView
         android:id="@+id/iv_disaster_image"
@@ -15,8 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/desc_img_disaster"
-        tools:src="@tools:sample/backgrounds/scenic"
-        tools:background="@drawable/round_outline"/>
+        tools:src="@tools:sample/backgrounds/scenic"/>
 
     <TextView
         android:id="@+id/tv_disaster_title"

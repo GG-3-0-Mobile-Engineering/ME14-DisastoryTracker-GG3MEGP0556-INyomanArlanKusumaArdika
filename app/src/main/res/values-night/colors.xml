@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary_background">#FF1C1B20</color>
+    <color name="primary_foreground">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="disastory_green">#FF00AA13</color>
+
+</resources>
