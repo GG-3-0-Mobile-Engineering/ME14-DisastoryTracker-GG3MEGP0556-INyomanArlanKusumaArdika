@@ -51,7 +51,10 @@ data class DisasterItems(
 	val type: String? = null,
 
 	@field:SerializedName("properties")
-	val disasterProperties: DisasterProperties? = null
+	val disasterProperties: DisasterProperties? = null,
+
+	@field:SerializedName("arcs")
+	val arcs: List<List<Int?>?>? = null
 ) : Parcelable
 
 @Parcelize
@@ -106,6 +109,22 @@ data class Result(
 	@field:SerializedName("type")
 	val type: String? = null,
 
+	@field:SerializedName("transform")
+	val transform: Transform? = null,
+
+	@field:SerializedName("arcs")
+	val arcs: List<List<List<Int?>?>?>? = null
+
+) : Parcelable
+
+@Parcelize
+data class Transform(
+
+	@field:SerializedName("scale")
+	val scale: List<Double?>? = null,
+
+	@field:SerializedName("translate")
+	val translate: List<Double?>? = null
 ) : Parcelable
 
 @Parcelize
@@ -152,7 +171,29 @@ data class DisasterProperties(
 	val text: String? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:SerializedName("area_name")
+	val areaName: String? = null,
+
+	@field:SerializedName("parent_name")
+	val parentName: String? = null,
+
+	@field:SerializedName("city_name")
+	val cityName: String? = null,
+
+	@field:SerializedName("last_updated")
+	val lastUpdated: String? = null,
+
+	@field:SerializedName("geom_id")
+	val geomId: String? = null,
+
+	@field:SerializedName("state")
+	val state: Int? = null,
+
+	@field:SerializedName("area_id")
+	val areaId: String? = null
+
 ) : Parcelable
 
 @Parcelize

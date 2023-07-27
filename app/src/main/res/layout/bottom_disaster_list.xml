@@ -57,17 +57,51 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_disaster_list"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        tools:listitem="@layout/item_row_disaster"
-        app:layout_constraintTop_toBottomOf="@id/tv_list_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:layout_height="wrap_content">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_disaster_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            tools:listitem="@layout/item_row_disaster"
+            app:layout_constraintTop_toBottomOf="@id/tv_list_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/warning_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:id="@+id/img_warning"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:layout_constraintBottom_toTopOf="@id/tv_warning"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

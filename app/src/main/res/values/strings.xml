@@ -5,10 +5,15 @@
 
     <string name="hint_search">Cari di sini</string>
     <string name="list_title">Informasi Bencana Terkini</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_settings">Pengaturan</string>
     <string name="settings_nights_title">Dark Mode</string>
-    <string name="settings_nights_subtitle">Enable dark mode</string>
-    <string name="desc_btn_settings">Settings Button</string>
+    <string name="settings_nights_subtitle">Aktifkan dark mode</string>
+    <string name="desc_btn_settings">Tombol Pengaturan</string>
+
+    <string name="warning_not_found">Waduh, data yang dicari gak ada..</string>
+    <string name="warning_no_data">Hmm.. datanya kosong nih.</string>
+    <string name="warning_exception">Terjadi kesalahan</string>
+
 
     <string name="flood">flood</string>
     <string name="haze">haze</string>
