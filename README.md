@@ -30,6 +30,10 @@ Built using Kotlin, Disastory offers a user-friendly interface and utilizes the 
 2. Open the project in Android Studio.
 3. Build and run the app on your Android device or emulator. (note: Google Map API is required)
 
+or
+
+Get the latest app release [here (Google Drive)](https://drive.google.com/file/d/11CDjvzLJOxxpQ_KpfSLtPzKntXZKY5g7/view?usp=drivesdk)
+
 ## Usage
 
 1. Upon launching the app, the main screen displays a map with the location markers of recent disasters.
