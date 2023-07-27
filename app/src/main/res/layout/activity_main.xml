@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".presentation.ui.MainActivity"
     app:umanoPanelHeight="68dp"
     app:umanoShadowHeight="4dp"
     >
@@ -130,6 +130,7 @@
             </LinearLayout>
 
         </HorizontalScrollView>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

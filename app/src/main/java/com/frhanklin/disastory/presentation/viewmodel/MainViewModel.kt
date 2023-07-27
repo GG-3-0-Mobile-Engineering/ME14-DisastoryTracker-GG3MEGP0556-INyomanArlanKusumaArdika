@@ -1,4 +1,4 @@
-package com.frhanklin.disastory
+package com.frhanklin.disastory.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.frhanklin.disastory.R
+import com.frhanklin.disastory.utils.SettingPreferences
 import com.frhanklin.disastory.api.ApiConfig
 import com.frhanklin.disastory.data.DisastoryDummyData
 import com.frhanklin.disastory.data.response.DisasterItems
@@ -24,9 +26,12 @@ class MainViewModel(
 
     private val disasterUtils = DisasterUtils(rp)
 
-
     fun getThemeSettings() : LiveData<Boolean> {
         return preferences.getThemeSetting().asLiveData()
+    }
+
+    fun getNotificationSettings(): LiveData<Boolean> {
+        return preferences.getNotificationSetting().asLiveData()
     }
 
     fun saveThemeSettings(darkModeState: Boolean) {
@@ -74,9 +79,65 @@ class MainViewModel(
 
     fun getRecentDisaster() {
         setLoading(true)
-        fetchFromRemote()
+        fetchFromRemoteAndDummy()
+//        fetchFromRemote()
 //        fetchFromDummy()
         setLoading(false)
+    }
+
+    private fun fetchFromRemoteAndDummy() {
+        val dummyReports = if (getFilter().isNotEmpty() && getCityId().isNotEmpty()) {
+            DisastoryDummyData.getDummyReports(getFilter(), getCityId())
+        } else if (getFilter().isNullOrBlank() && getCityId().isNotEmpty()) {
+            DisastoryDummyData.getDummyReports("cityFilter", getCityId())
+        } else if (getFilter().isNotEmpty() && getCityId().isNullOrBlank()) {
+            DisastoryDummyData.getDummyReports("disasterFilter", getFilter())
+        } else {
+            DisastoryDummyData.getDummyReports()
+        }
+        val disasterItemsDummy = (dummyReports.result?.objects?.output?.geometries as ArrayList<DisasterItems>?)!!
+
+        val client = if (getFilter().isNotEmpty() && getCityId().isNotEmpty()) {
+            ApiConfig.getApiService().getReportsByLocationAndType(getCityId(), getFilter())
+        } else if (getFilter().isNotEmpty() && getCityId().isEmpty())  {
+            ApiConfig.getApiService().getReportsByType(getFilter())
+        } else if (getFilter().isEmpty() && getCityId().isNotEmpty()) {
+            ApiConfig.getApiService().getReportsByLocation(getCityId())
+        } else {
+            ApiConfig.getApiService().getReports()
+        }
+
+        client.enqueue(object : Callback<PetaBencanaReports> {
+            override fun onResponse(
+                call: Call<PetaBencanaReports>,
+                response: Response<PetaBencanaReports>
+            ) {
+                if (response.isSuccessful) {
+                    _disasterItemsArray.value = ArrayList()
+                    val responseBody = response.body()
+                    val arrayNotEmpty = responseBody?.result?.objects?.output?.geometries?.isNotEmpty() as Boolean
+                    if (arrayNotEmpty) {
+                        setWarn(false, "")
+                        val arrayList = ArrayList<DisasterItems>()
+                        for (items in responseBody.result.objects.output.geometries) {
+                            arrayList.add(items!!)
+                        }
+                        disasterItemsDummy.addAll(arrayList)
+                        _disasterItemsArray.value = disasterItemsDummy
+                    } else {
+                        setWarn(true, rp.getString(R.string.warning_no_data))
+                    }
+                } else {
+                    setWarn(true, rp.getString(R.string.warning_not_found))
+                }
+            }
+
+            override fun onFailure(call: Call<PetaBencanaReports>, t: Throwable) {
+                setWarn(true, rp.getString(R.string.warning_exception))
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+
+        })
     }
 
     private fun fetchFromDummy() {

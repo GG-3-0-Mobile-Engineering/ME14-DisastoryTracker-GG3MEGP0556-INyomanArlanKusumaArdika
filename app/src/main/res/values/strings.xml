@@ -64,6 +64,14 @@
     <string name="city_sulawesi_barat">Sulawesi Barat</string>
     <string name="city_sumatera_barat">Sumatera Barat</string>
     <string name="unknown">Tidak Diketahui</string>
+    <string name="settings_notification_title">Notifikasi bahaya banjir</string>
+    <string name="settings_notification_subtitle">Izinkan notifikasi latar belakang</string>
+    <string name="notification_enabled">Notifikasi diaktifkan.</string>
+    <string name="permission_denied">Izin ditolak.</string>
+    <string name="notification_disabled">Notifikasi dinonaktifkan.</string>
+    <string name="permission_required">Izin diperlukan.</string>
+    <string name="permission_required_details">Agar dapat bekerja dengan baik, aplikasi memerlukan beberapa izin untuk diaktifkan.</string>
+    <string name="go_to_settings">Buka Pengaturan</string>
 
     <string-array name="city_names">
         <item>@string/city_aceh</item>

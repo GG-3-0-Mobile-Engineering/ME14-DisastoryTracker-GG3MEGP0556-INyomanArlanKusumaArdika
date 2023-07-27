@@ -1,8 +1,9 @@
-package com.frhanklin.disastory
+package com.frhanklin.disastory.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.frhanklin.disastory.utils.ResourceProvider
+import com.frhanklin.disastory.presentation.viewmodel.MainViewModel
+import com.frhanklin.disastory.presentation.viewmodel.SettingsViewModel
 
 
 class ViewModelFactory(

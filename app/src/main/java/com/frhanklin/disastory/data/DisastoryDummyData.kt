@@ -53,7 +53,7 @@ object DisastoryDummyData {
                         source = "dummy",
                         text = "Dummy data for $disasterType",
                         reportData = ReportData(reportType = disasterType, fireDistance = null),
-                        tags = Tags(regionCode = regionCode)
+                        tags = Tags(instanceRegionCode = regionCode)
                     ),
                     coordinates = coordinates
                 )
@@ -71,6 +71,29 @@ object DisastoryDummyData {
         jsonDisasterItems.addAll(generateDummyDisasterItems(4, "earthquake", "ID-KS")) // Kalimantan Selatan
         jsonDisasterItems.addAll(generateDummyDisasterItems(2, "volcano", "ID-JI")) // Jawa Timur
         jsonDisasterItems.addAll(generateDummyDisasterItems(5, "fire", "ID-KT")) // Kalimantan Tengah
+        return jsonDisasterItems
+    }
+
+    private fun getDummyReportsItems(paramType: String, paramValue: String): List<DisasterItems> {
+        val jsonDisasterItems = mutableListOf<DisasterItems>()
+        if (paramType == "filter") {
+//            return getDummyReportsItems(count, disasterType = paramValue, "ÏD-JK")
+            jsonDisasterItems.addAll(generateDummyDisasterItems(3, paramValue, "ID-SU"))
+
+        } else {
+            jsonDisasterItems.addAll(generateDummyDisasterItems(3, "flood", paramValue))
+        }
+        return jsonDisasterItems
+    }
+
+    private fun getDummyReportsItems(count: Int, disasterType: String, regionCode: String): List<DisasterItems> {
+        val jsonDisasterItems = mutableListOf<DisasterItems>()
+        if (disasterType == "") {
+            return getDummyReportsItems()
+        } else {
+            jsonDisasterItems.addAll(generateDummyDisasterItems(count, disasterType, regionCode))
+
+        }
         return jsonDisasterItems
     }
 
@@ -151,6 +174,35 @@ object DisastoryDummyData {
             statusCode = 200
         )
     }
+
+    fun getDummyReports(param1: String, param2: String): PetaBencanaReports {
+        val additionalItems = when (param1) {
+            "disasterFilter" -> getDummyReportsItems("filter", param2)
+            "cityFilter" -> getDummyReportsItems("code", param2)
+            else -> getDummyReportsItems(1, disasterType = param1, regionCode = param2)
+        }
+
+
+        return PetaBencanaReports(
+            result = Result(
+                objects = Objects(
+                    output = Output(
+                        geometries = additionalItems,
+                        type = "GeometryCollection"
+                    )
+                ),
+                type = "Topology",
+                arcs = emptyList(),
+                bbox = listOf(106.8329505207, -6.9813433971, 110.3178483392, -6.1807951369),
+                transform = Transform(
+                    scale = listOf(0.0000003311331833192323, 0.00000032713269326930546),
+                    translate = listOf(106.7917869997, -6.158925)
+                )
+            ),
+            statusCode = 200
+        )
+    }
+
 
     fun getDummyFloodReports(): PetaBencanaReports {
         val additionalItems = getDummyFloodReportsItems()

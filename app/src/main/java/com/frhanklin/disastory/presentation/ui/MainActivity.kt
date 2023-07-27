@@ -1,4 +1,4 @@
-package com.frhanklin.disastory
+package com.frhanklin.disastory.presentation.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -23,16 +21,20 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import com.frhanklin.disastory.presentation.adapter.ListDisasterAdapter
+import com.frhanklin.disastory.presentation.viewmodel.MainViewModel
+import com.frhanklin.disastory.R
+import com.frhanklin.disastory.utils.SettingPreferences
+import com.frhanklin.disastory.utils.ViewModelFactory
 import com.frhanklin.disastory.data.response.DisasterItems
 import com.frhanklin.disastory.databinding.ActivityMainBinding
 import com.frhanklin.disastory.utils.AndroidResourceProvider
 import com.frhanklin.disastory.utils.BitmapUtils
 import com.frhanklin.disastory.utils.DisasterUtils
-import com.frhanklin.disastory.utils.DisastoryWorker
+import com.frhanklin.disastory.utils.NotificationWorker
 import com.frhanklin.disastory.utils.ResourceProvider
+import com.frhanklin.disastory.utils.dataStore
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -44,7 +46,6 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mapFragment: SupportMapFragment
-    private lateinit var googleMap: GoogleMap
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
@@ -63,43 +64,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rp: ResourceProvider
     private lateinit var disasterUtils: DisasterUtils
 
-
-
-
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Permission rejected", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pref = SettingPreferences.getInstance(application.dataStore)
-        rp = AndroidResourceProvider(applicationContext)
-        disasterUtils = DisasterUtils(rp)
+        initiateObjects()
+        setObservable()
+        setViews()
+    }
 
-//        if (Build.VERSION.SDK_INT >= 33) {
-//            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-//        }
-//        workManager = WorkManager.getInstance(this)
-//        setUpPeriodicNotification()
-
-
-
-        viewModel = ViewModelProvider(this, ViewModelFactory(pref, rp)).get(
-            MainViewModel::class.java
-        )
+    private fun setObservable() {
         viewModel.getThemeSettings().observe(this) { nightState ->
             if (nightState) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -108,17 +84,13 @@ class MainActivity : AppCompatActivity() {
             }
             viewModel.saveThemeSettings(nightState)
         }
-
-
-        mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
-        mapFragment.getMapAsync(OnMapReadyCallback {
-            googleMap = it
-        })
-
-        rvDisasterList = findViewById(R.id.rv_disaster_list)
-        rvDisasterList.layoutManager = LinearLayoutManager(this)
-
-        setViews()
+        viewModel.getNotificationSettings().observe(this) { notificationIsEnabled ->
+            println("Notif state: "+notificationIsEnabled)
+            if (notificationIsEnabled) {
+                workManager = WorkManager.getInstance(this)
+                setUpPeriodicNotification()
+            }
+        }
 
         viewModel.disasterItemsArray.observe(this) {
             mapFragment.getMapAsync {
@@ -130,9 +102,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) {isLoading ->
             if (isLoading) {
                 binding.loading.visibility = View.VISIBLE
+                mSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             } else {
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.loading.visibility = View.GONE
+                    mSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                 }, 1000)
             }
         }
@@ -150,20 +124,18 @@ class MainActivity : AppCompatActivity() {
         viewModel.getRecentDisaster()
     }
 
-    private fun setUpPeriodicNotification() {
-        val repeatInterval = 1L
-        val repeatIntervalTimeUnit = TimeUnit.HOURS
+    private fun initiateObjects() {
+        pref = SettingPreferences.getInstance(application.dataStore)
+        rp = AndroidResourceProvider(applicationContext)
+        disasterUtils = DisasterUtils(rp)
 
-        val periodicWorkRequest = PeriodicWorkRequest.Builder(
-            DisastoryWorker::class.java,
-            repeatInterval,
-            repeatIntervalTimeUnit
-        ).build()
+        viewModel =
+            ViewModelProvider(this, ViewModelFactory(pref, rp)).get(MainViewModel::class.java)
 
-        workManager.enqueue(periodicWorkRequest)
-    }
+        mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
 
-    private fun setViews() {
+        rvDisasterList = findViewById(R.id.rv_disaster_list)
+        rvDisasterList.layoutManager = LinearLayoutManager(this)
 
         mBottomSheetLayout = findViewById(R.id.bottom_sheet_layout)
         btnCloseBottomSheet = findViewById(R.id.btn_back)
@@ -172,7 +144,22 @@ class MainActivity : AppCompatActivity() {
         imgWarning = findViewById(R.id.img_warning)
 
         mSheetBehavior = BottomSheetBehavior.from(mBottomSheetLayout)
-        mSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+
+    }
+
+    private fun setUpPeriodicNotification() {
+
+        val periodicNotificationRequest = PeriodicWorkRequest.Builder(
+            NotificationWorker::class.java,
+            repeatInterval = 15,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES
+        ).build()
+
+        workManager.enqueue(periodicNotificationRequest)
+    }
+
+    private fun setViews() {
+
         mSheetBehavior.addBottomSheetCallback(object: BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
@@ -283,10 +270,13 @@ class MainActivity : AppCompatActivity() {
             if (hasFocus) {
                 binding.listSearchSuggestion.visibility = View.VISIBLE
                 binding.btnSettings.visibility = View.GONE
+                mSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                mBottomSheetLayout.visibility = View.GONE
             } else {
                 binding.listSearchSuggestion.visibility = View.GONE
                 binding.btnSettings.visibility = View.VISIBLE
-
+                mBottomSheetLayout.visibility = View.VISIBLE
+                mSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             }
         }
         binding.listSearchSuggestion.visibility = View.GONE
@@ -359,7 +349,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
-        rvDisasterList.adapter = ListDisasterAdapter(list, mapFragment, mSheetBehavior, this, rp)
+        rvDisasterList.adapter = ListDisasterAdapter(list, mapFragment, mSheetBehavior, rp)
         setMapPoints(list)
     }
 
@@ -375,21 +365,27 @@ class MainActivity : AppCompatActivity() {
                 null
             )
 
-            val bitmap = BitmapUtils().vectorToBitmap(vectorDrawable)
-            println("Location value: $location")
+            val markerTitle = disasterUtils.getDisasterType(item.disasterProperties?.disasterType)
+            val markerSubtitle = disasterUtils.getRegionString(item.disasterProperties?.tags?.instanceRegionCode ?:"")
 
-            mapFragment.getMapAsync {
+
+
+
+            val bitmap = BitmapUtils().vectorToBitmap(vectorDrawable)
+
+            mapFragment.getMapAsync {googleMap ->
                 googleMap.addMarker(
                     MarkerOptions()
                         .position(location)
-                        .title(item.type ?: "Unknown")
+                        .title(markerTitle)
+                        .snippet(markerSubtitle)
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                 )
             }
-            lastLoc = location
+//            lastLoc = location
         }
         mapFragment.getMapAsync {
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLoc, 5f))
+            it.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLoc, 5f))
         }
 
     }

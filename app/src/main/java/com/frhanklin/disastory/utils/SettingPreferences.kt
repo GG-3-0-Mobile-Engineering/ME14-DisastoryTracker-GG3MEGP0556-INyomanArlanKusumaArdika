@@ -1,4 +1,4 @@
-package com.frhanklin.disastory
+package com.frhanklin.disastory.utils
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -23,6 +23,12 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
         }
     }
 
+    fun getNotificationSetting(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[KEY_NOTIFICATION] ?: false
+        }
+    }
+
     suspend fun saveThemeSetting(darkModeState: Boolean) {
         dataStore.edit { preferences ->
             preferences[KEY_THEME] = darkModeState
@@ -34,6 +40,8 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
             preferences[KEY_NOTIFICATION] = notificationEnableState
         }
     }
+
+
 
     companion object {
         @Volatile

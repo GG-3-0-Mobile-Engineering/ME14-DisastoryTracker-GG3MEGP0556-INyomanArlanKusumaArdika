@@ -4,36 +4,40 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.os.Looper
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.frhanklin.disastory.MainViewModel
 import com.frhanklin.disastory.R
 import com.frhanklin.disastory.api.ApiConfig
 import com.frhanklin.disastory.data.DisastoryDummyData
 import com.frhanklin.disastory.data.response.DisasterItems
 import com.frhanklin.disastory.data.response.PetaBencanaReports
-import com.loopj.android.http.SyncHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
-class DisastoryWorker(c: Context, workerParams: WorkerParameters) : Worker(c, workerParams) {
+class NotificationWorker(c: Context, workerParams: WorkerParameters) : Worker(c, workerParams) {
 
     companion object {
-        private val TAG = DisastoryWorker::class.java.simpleName
+        private val TAG = NotificationWorker::class.java.simpleName
 
         const val NOTIFICATION_ID_FLOOD_WARNING = 1
         const val CHANNEL_ID = "channel_disastory"
         const val CHANNEL_NAME = "disastory_notification"
     }
 
-    private var resultStatus: Result? = null
-
 
     override fun doWork(): Result {
+        while (!isStopped) {
+            showNotification()
+            Thread.sleep(TimeUnit.MINUTES.toMillis(15))
+        }
+
+        return Result.success()
+    }
+
+    private fun showNotification() {
         val report = getFloodData()
 
 //      Getting recent flood report that has state 3 / 4
@@ -48,8 +52,6 @@ class DisastoryWorker(c: Context, workerParams: WorkerParameters) : Worker(c, wo
             title = "Banjir terdeteksi!",
             description = "Lokasi: ${recent.disasterProperties!!.cityName} | Ketinggian > 70cm"
         )
-
-        return Result.success()
     }
 
     private fun getFloodData(): PetaBencanaReports {

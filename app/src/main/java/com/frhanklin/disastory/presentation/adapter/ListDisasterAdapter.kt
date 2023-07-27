@@ -1,6 +1,5 @@
-package com.frhanklin.disastory
+package com.frhanklin.disastory.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +7,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.frhanklin.disastory.R
 import com.frhanklin.disastory.data.response.DisasterItems
 import com.frhanklin.disastory.databinding.ItemRowDisasterBinding
 import com.frhanklin.disastory.utils.DisasterUtils
@@ -22,7 +22,6 @@ class ListDisasterAdapter(
     private val listDisasterItems: ArrayList<DisasterItems>,
     private val mapFragment: SupportMapFragment,
     private val bottomBehavior: BottomSheetBehavior<LinearLayout>,
-    private val c: Context,
     private val rp: ResourceProvider
 ) : RecyclerView.Adapter<ListDisasterAdapter.ListViewHolder>() {
 
