@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
-<!--Activity Title-->
+    <!--Activity Title-->
     <LinearLayout
         android:id="@+id/settings_container"
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
 
     </LinearLayout>
 
-<!--Night Mode-->
+    <!--Night Mode-->
     <LinearLayout
         android:id="@+id/settings_night_container"
         android:layout_width="match_parent"

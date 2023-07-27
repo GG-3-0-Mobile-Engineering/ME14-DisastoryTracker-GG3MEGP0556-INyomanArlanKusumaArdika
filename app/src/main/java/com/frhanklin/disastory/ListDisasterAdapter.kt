@@ -4,24 +4,29 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.frhanklin.disastory.data.Region
 import com.frhanklin.disastory.data.response.DisasterItems
 import com.frhanklin.disastory.databinding.ItemRowDisasterBinding
+import com.frhanklin.disastory.utils.DisasterUtils
+import com.frhanklin.disastory.utils.ResourceProvider
 import com.frhanklin.disastory.utils.TimeAndDateUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class ListDisasterAdapter(
     private val listDisasterItems: ArrayList<DisasterItems>,
     private val mapFragment: SupportMapFragment,
-    private val c: Context
-    ) : RecyclerView.Adapter<ListDisasterAdapter.ListViewHolder>() {
+    private val bottomBehavior: BottomSheetBehavior<LinearLayout>,
+    private val c: Context,
+    private val rp: ResourceProvider
+) : RecyclerView.Adapter<ListDisasterAdapter.ListViewHolder>() {
 
-
+    private val disasterUtils = DisasterUtils(rp)
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemRowDisasterBinding.bind(itemView)
@@ -36,19 +41,12 @@ class ListDisasterAdapter(
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val disaster = listDisasterItems[position]
-        val disasterRegion = Region.getRegionString(c, disaster.disasterProperties?.tags?.instanceRegionCode ?: "")
-        val disasterType =
-            when (disaster.disasterProperties?.disasterType) {
-                c.getString(R.string.flood) -> c.getString(R.string.type_flood)
-                c.getString(R.string.haze) -> c.getString(R.string.type_haze)
-                c.getString(R.string.wind) -> c.getString(R.string.type_wind)
-                c.getString(R.string.earthquake) -> c.getString(R.string.type_earthquake)
-                c.getString(R.string.volcano) -> c.getString(R.string.type_volcano)
-                c.getString(R.string.fire) -> c.getString(R.string.type_fire)
-                else -> c.getString(R.string.unknown)
-            }
+        val disasterRegion = disasterUtils.getRegionString(disaster.disasterProperties?.tags?.instanceRegionCode ?: "")
+        val disasterType = disasterUtils.getDisasterType(disaster.disasterProperties?.disasterType)
+
         val title = "$disasterType \n($disasterRegion)"
         val subtitle = TimeAndDateUtils.convertTimeStamp(disaster.disasterProperties?.createdAt ?: "")
+        val imgString = disaster.disasterProperties?.imageUrl
 
 
 
@@ -57,21 +55,18 @@ class ListDisasterAdapter(
             binding.tvDisasterTitle.text = title
             binding.tvDisasterSubtitle.text = subtitle
             Glide.with(itemView.context)
-                .load(
-                    when(disaster.disasterProperties?.disasterType) {
-                        "flood" -> R.drawable.img_illustration_flood
-                        "haze" -> R.drawable.img_illustration_haze
-                        "fire" -> R.drawable.img_illustration_fire
-                        "wind" -> R.drawable.img_illustration_wind
-                        "earthquake" -> R.drawable.img_illustration_earthquake
-                        "volcano" -> R.drawable.img_illustration_volcano
-                        else -> R.drawable.ic_not_listed_location_24
-                    }
+                .load(disasterUtils.getDisasterDefaultImg(disaster.disasterProperties?.disasterType ?: "")
+//                    if (imgString.isNullOrBlank() || imgString.isEmpty()) {
+//                        imgString
+//                    } else {
+//                        disasterUtils.getDisasterDefaultImg(disaster.disasterProperties.disasterType)
+//                    }
                 )
                 .transform(FitCenter())
                 .into(binding.ivDisasterImage)
 
             binding.itemDisaster.setOnClickListener {
+
                 mapFragment.getMapAsync {
                     it.animateCamera(CameraUpdateFactory.zoomOut())
                     it.animateCamera(
@@ -79,8 +74,9 @@ class ListDisasterAdapter(
                             LatLng(
                                 disaster.coordinates?.get(0) ?: 0.0,
                                 disaster.coordinates?.get(1) ?: 0.0
-                            ), 4f)
+                            ), 10f)
                     )
+                    bottomBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
             }
 

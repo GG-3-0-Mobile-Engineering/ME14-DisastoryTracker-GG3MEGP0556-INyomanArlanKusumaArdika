@@ -27,10 +27,16 @@ interface ApiService {
         @Query("admin") admin: String,
         @Query("timeperiod") timePeriod: Int = 259200
     ): Call<PetaBencanaReports>
+
     @GET("reports")
     fun getReportsByType(
         @Query("disaster") disaster: String,
         @Query("timeperiod") timePeriod: Int = 259200
     ): Call<PetaBencanaReports>
+
+    @GET("floods/states")
+    fun getFloodsStates(): Call<PetaBencanaReports>
+
+
 
 }

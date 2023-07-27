@@ -1,6 +1,5 @@
 package com.frhanklin.disastory
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,15 +7,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.frhanklin.disastory.api.ApiConfig
-import com.frhanklin.disastory.data.Region
+import com.frhanklin.disastory.data.DisastoryDummyData
 import com.frhanklin.disastory.data.response.DisasterItems
 import com.frhanklin.disastory.data.response.PetaBencanaReports
+import com.frhanklin.disastory.utils.DisasterUtils
+import com.frhanklin.disastory.utils.ResourceProvider
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
+class MainViewModel(
+    private val preferences: SettingPreferences,
+    private val rp: ResourceProvider
+) : ViewModel() {
+
+    private val disasterUtils = DisasterUtils(rp)
+
 
     fun getThemeSettings() : LiveData<Boolean> {
         return preferences.getThemeSetting().asLiveData()
@@ -67,6 +74,17 @@ class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
 
     fun getRecentDisaster() {
         setLoading(true)
+        fetchFromRemote()
+//        fetchFromDummy()
+        setLoading(false)
+    }
+
+    private fun fetchFromDummy() {
+        val reports = DisastoryDummyData.getDummyReports()
+        _disasterItemsArray.value = (reports.result?.objects?.output?.geometries as ArrayList<DisasterItems>?)!!
+    }
+
+    private fun fetchFromRemote() {
         val client = if (getFilter().isNotEmpty() && getCityId().isNotEmpty()) {
             ApiConfig.getApiService().getReportsByLocationAndType(getCityId(), getFilter())
         } else if (getFilter().isNotEmpty() && getCityId().isEmpty())  {
@@ -82,7 +100,6 @@ class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
                 call: Call<PetaBencanaReports>,
                 response: Response<PetaBencanaReports>
             ) {
-                setLoading(false)
                 if (response.isSuccessful) {
                     _disasterItemsArray.value = ArrayList()
                     val responseBody = response.body()
@@ -94,20 +111,20 @@ class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
                             arrayList.add(items!!)
                         }
                         _disasterItemsArray.value = arrayList
+                    } else {
+                        setWarn(true, rp.getString(R.string.warning_no_data))
                     }
                 } else {
-                    setWarn(true, "Data tidak ditemukan")
+                    setWarn(true, rp.getString(R.string.warning_not_found))
                 }
             }
 
             override fun onFailure(call: Call<PetaBencanaReports>, t: Throwable) {
-                setLoading(false)
-                setWarn(true, "Error fetching data")
+                setWarn(true, rp.getString(R.string.warning_exception))
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
         })
-
     }
 
     fun setFilter(type: String) {
@@ -120,9 +137,7 @@ class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
     }
 
 
-    fun setLocation(c: Context, location: String) {
-        val regions = Region
-
-        _cityId.value = regions.getRegionCode(c, location)
+    fun setLocation(location: String) {
+        _cityId.value = disasterUtils.getRegionCode(location)
     }
 }
