@@ -2,8 +2,9 @@ package com.frhanklin.disastory.utils
 
 import android.graphics.drawable.Drawable
 import com.frhanklin.disastory.R
+import javax.inject.Inject
 
-class DisasterUtils(private val rp: ResourceProvider) {
+class DisasterUtils @Inject constructor(private val rp: ResourceProvider) {
 
     fun getRegionCode(location: String): String {
         return when(location) {

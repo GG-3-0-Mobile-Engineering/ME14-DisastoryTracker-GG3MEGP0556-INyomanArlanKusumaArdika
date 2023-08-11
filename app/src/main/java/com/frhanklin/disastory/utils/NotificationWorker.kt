@@ -8,10 +8,10 @@ import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.frhanklin.disastory.R
-import com.frhanklin.disastory.api.ApiConfig
+import com.frhanklin.disastory.data.source.remote.api.ApiConfig
 import com.frhanklin.disastory.data.DisastoryDummyData
-import com.frhanklin.disastory.data.response.DisasterItems
-import com.frhanklin.disastory.data.response.PetaBencanaReports
+import com.frhanklin.disastory.data.source.remote.response.DisasterItems
+import com.frhanklin.disastory.data.source.remote.response.PetaBencanaReports
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

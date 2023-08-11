@@ -1,14 +1,14 @@
 package com.frhanklin.disastory.data
 
-import com.frhanklin.disastory.data.response.DisasterItems
-import com.frhanklin.disastory.data.response.DisasterProperties
-import com.frhanklin.disastory.data.response.Objects
-import com.frhanklin.disastory.data.response.Output
-import com.frhanklin.disastory.data.response.PetaBencanaReports
-import com.frhanklin.disastory.data.response.ReportData
-import com.frhanklin.disastory.data.response.Result
-import com.frhanklin.disastory.data.response.Tags
-import com.frhanklin.disastory.data.response.Transform
+import com.frhanklin.disastory.data.source.remote.response.DisasterItems
+import com.frhanklin.disastory.data.source.remote.response.DisasterProperties
+import com.frhanklin.disastory.data.source.remote.response.Objects
+import com.frhanklin.disastory.data.source.remote.response.Output
+import com.frhanklin.disastory.data.source.remote.response.PetaBencanaReports
+import com.frhanklin.disastory.data.source.remote.response.ReportData
+import com.frhanklin.disastory.data.source.remote.response.Result
+import com.frhanklin.disastory.data.source.remote.response.Tags
+import com.frhanklin.disastory.data.source.remote.response.Transform
 import kotlin.random.Random
 
 object DisastoryDummyData {

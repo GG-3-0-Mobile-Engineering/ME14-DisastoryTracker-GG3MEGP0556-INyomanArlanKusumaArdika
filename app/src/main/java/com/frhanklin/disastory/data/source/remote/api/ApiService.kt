@@ -1,6 +1,7 @@
-package com.frhanklin.disastory.api
+package com.frhanklin.disastory.data.source.remote.api
 
-import com.frhanklin.disastory.data.response.PetaBencanaReports
+import com.frhanklin.disastory.data.source.remote.response.PetaBencanaReports
+import com.frhanklin.disastory.utils.TimeAndDateUtils
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,6 +15,12 @@ interface ApiService {
     fun getReports(
         @Query("timeperiod") timePeriod: Int = 259200
     ): Call<PetaBencanaReports>
+
+    @GET("reports/archive")
+    fun getArchive(
+        @Query("start") startTime: String = TimeAndDateUtils.getDateOneWeek(),
+        @Query("end") endTime: String = TimeAndDateUtils.getCurrentDate()
+    ) : Call<PetaBencanaReports>
 
     @GET("reports")
     fun getReportsByLocationAndType(

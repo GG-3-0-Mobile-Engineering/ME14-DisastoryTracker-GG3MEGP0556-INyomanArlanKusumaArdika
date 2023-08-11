@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.data.response
+package com.frhanklin.disastory.data.source.remote.response
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable

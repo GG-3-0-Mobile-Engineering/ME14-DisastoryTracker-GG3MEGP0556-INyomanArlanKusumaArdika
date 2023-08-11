@@ -189,7 +189,9 @@
 
     </FrameLayout>
 
-    <include layout="@layout/bottom_disaster_list"/>
+    <include
+        android:id="@+id/bottom_sheet"
+        layout="@layout/bottom_disaster_list"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loading"

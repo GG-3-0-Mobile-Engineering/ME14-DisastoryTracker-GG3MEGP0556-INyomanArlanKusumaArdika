@@ -8,22 +8,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.frhanklin.disastory.R
-import com.frhanklin.disastory.utils.SettingPreferences
 import com.frhanklin.disastory.presentation.viewmodel.SettingsViewModel
-import com.frhanklin.disastory.utils.ViewModelFactory
-import com.frhanklin.disastory.utils.dataStore
 import com.frhanklin.disastory.databinding.ActivitySettingsBinding
-import com.frhanklin.disastory.utils.AndroidResourceProvider
 import com.frhanklin.disastory.utils.PermissionHandler
-import com.frhanklin.disastory.utils.ResourceProvider
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
-    private lateinit var pref: SettingPreferences
-    private lateinit var rp: ResourceProvider
     private lateinit var permissionHandler: PermissionHandler
 
-
+    private val settingsViewModel : SettingsViewModel by lazy {
+        ViewModelProvider(this).get(SettingsViewModel::class.java)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -37,14 +34,8 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pref = SettingPreferences.getInstance(application.dataStore)
-        rp = AndroidResourceProvider(applicationContext)
         permissionHandler = PermissionHandler(this)
 
-
-        val settingsViewModel = ViewModelProvider(this, ViewModelFactory(pref, rp)).get(
-            SettingsViewModel::class.java
-        )
         settingsViewModel.getThemeSettings().observe(this) { nightStateOn: Boolean ->
             if (nightStateOn) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

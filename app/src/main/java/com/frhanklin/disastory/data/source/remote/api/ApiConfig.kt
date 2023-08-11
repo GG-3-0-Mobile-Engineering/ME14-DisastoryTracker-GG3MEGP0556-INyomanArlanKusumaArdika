@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.api
+package com.frhanklin.disastory.data.source.remote.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
