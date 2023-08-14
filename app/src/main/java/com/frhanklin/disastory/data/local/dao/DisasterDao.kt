@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.data.source.local.room
+package com.frhanklin.disastory.data.local.dao
 
 import androidx.paging.DataSource
 import androidx.room.Dao
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
+import com.frhanklin.disastory.data.local.entity.DisasterModel
 
 @Dao
 interface DisasterDao {

@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.presentation.ui
+package com.frhanklin.disastory.presentation.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -21,13 +21,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.frhanklin.disastory.presentation.viewmodel.MainViewModel
+import com.frhanklin.disastory.presentation.ui.viewmodel.MainViewModel
 import com.frhanklin.disastory.R
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
-import com.frhanklin.disastory.data.source.remote.response.DisasterItems
+import com.frhanklin.disastory.data.local.entity.DisasterModel
+import com.frhanklin.disastory.data.remote.response.DisasterItems
 import com.frhanklin.disastory.databinding.ActivityMainBinding
 import com.frhanklin.disastory.databinding.BottomDisasterListBinding
-import com.frhanklin.disastory.presentation.adapter.DisasterAdapter
+import com.frhanklin.disastory.presentation.ui.adapters.DisasterAdapter
 import com.frhanklin.disastory.utils.BitmapUtils
 import com.frhanklin.disastory.utils.DisasterUtils
 import com.frhanklin.disastory.utils.NotificationWorker
@@ -133,6 +133,9 @@ class MainActivity : AppCompatActivity(), DisasterAdapter.OnItemClickCallback {
         viewModel.filter.observe(this) {
             viewModel.getDisaster().observe(this, disasterObserver)
         }
+        viewModel.filterArray.observe(this) {
+            updateDisasterFilterButtons(it)
+        }
         viewModel.cityId.observe(this) {
             viewModel.getDisaster().observe(this, disasterObserver)
         }
@@ -146,6 +149,29 @@ class MainActivity : AppCompatActivity(), DisasterAdapter.OnItemClickCallback {
         viewModel.warningText.observe(this) { newWarning ->
             bottomSheetBinding.tvWarning.text = newWarning
             bottomSheetBinding.imgWarning.setImageDrawable(disasterUtils.getWarningImage(newWarning))
+        }
+    }
+
+    private fun updateDisasterFilterButtons(it: ArrayList<String>) {
+        for (item in it) {
+            val view = when (item)  {
+                "flood" -> mainBinding.btnSearchFlood
+                "haze" -> mainBinding.btnSearchHaze
+                "wind" -> mainBinding.btnSearchWind
+                "earthquake" -> mainBinding.btnSearchEarthquake
+                "volcano" -> mainBinding.btnSearchVolcano
+                "fire" -> mainBinding.btnSearchFire
+                else -> mainBinding.btnSearchFlood
+            }
+            view.isSelected = true
+            view.background = getDrawable(R.drawable.round_fill_green)
+//            if (!isAlreadySelected) {
+//                view.isSelected = true
+//
+//            } else {
+//                view.isSelected = false
+//                view.background = getDrawable(R.drawable.round_fill)
+//            }
         }
     }
 
@@ -342,8 +368,6 @@ class MainActivity : AppCompatActivity(), DisasterAdapter.OnItemClickCallback {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun onCustomRadioButtonClick(view: View): Boolean {
         val isAlreadySelected = view.isSelected
-
-
 
         if (!isAlreadySelected) {
             view.isSelected = true

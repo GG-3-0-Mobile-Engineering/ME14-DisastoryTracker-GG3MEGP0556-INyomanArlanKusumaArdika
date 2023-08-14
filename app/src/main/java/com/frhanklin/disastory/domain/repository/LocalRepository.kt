@@ -1,7 +1,7 @@
-package com.frhanklin.disastory.data.source.local
+package com.frhanklin.disastory.domain.repository
 
 import androidx.paging.DataSource
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
+import com.frhanklin.disastory.data.local.entity.DisasterModel
 
 interface LocalRepository {
 

@@ -1,10 +1,11 @@
-package com.frhanklin.disastory.data.source.local.room
+package com.frhanklin.disastory.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
+import com.frhanklin.disastory.data.local.dao.DisasterDao
+import com.frhanklin.disastory.data.local.entity.DisasterModel
 
 @Database(
     entities = [DisasterModel::class],

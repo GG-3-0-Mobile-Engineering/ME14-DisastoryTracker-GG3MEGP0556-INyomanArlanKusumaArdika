@@ -1,11 +1,13 @@
-package com.frhanklin.disastory.data.source.remote
+package com.frhanklin.disastory.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.frhanklin.disastory.data.source.remote.api.ApiService
-import com.frhanklin.disastory.data.source.remote.response.DisasterItems
-import com.frhanklin.disastory.data.source.remote.response.PetaBencanaReports
+import com.frhanklin.disastory.data.remote.ApiResponse
+import com.frhanklin.disastory.data.remote.api.ApiService
+import com.frhanklin.disastory.data.remote.response.DisasterItems
+import com.frhanklin.disastory.data.remote.response.PetaBencanaReports
+import com.frhanklin.disastory.domain.repository.RemoteRepository
 import com.frhanklin.disastory.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback

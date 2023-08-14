@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.data.source.remote
+package com.frhanklin.disastory.data.remote
 
 class ApiResponse<T>(val status: StatusResponse, val body: T, val message: String?) {
     companion object {

@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.presentation.adapter
+package com.frhanklin.disastory.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
+import com.frhanklin.disastory.data.local.entity.DisasterModel
 import com.frhanklin.disastory.databinding.ItemRowDisasterBinding
 import com.frhanklin.disastory.utils.DisasterUtils
 import com.frhanklin.disastory.utils.TimeAndDateUtils
@@ -30,11 +30,11 @@ class DisasterAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(disaster: DisasterModel) {
-            val disasterRegion = disasterUtils.getRegionString(disaster.regionCode ?: "")
+            val disasterRegion = disasterUtils.getRegionString(disaster.regionCode)
             val disasterType = disasterUtils.getDisasterType(disaster.type)
 
             val title = "$disasterType \n($disasterRegion)"
-            val subtitle = TimeAndDateUtils.convertTimeStamp(disaster.createdAt ?: "")
+            val subtitle = TimeAndDateUtils.convertTimeStamp(disaster.createdAt)
 
             binding.tvDisasterTitle.text = title
             binding.tvDisasterSubtitle.text = subtitle
@@ -44,7 +44,7 @@ class DisasterAdapter(
                 .into(binding.ivDisasterImage)
 
             binding.itemDisaster.setOnClickListener {
-                onItemClickCallback.onItemClicked(disaster.latitude ?: 0.0, disaster.longitude ?: 0.0)
+                onItemClickCallback.onItemClicked(disaster.latitude, disaster.longitude)
 
             }
 

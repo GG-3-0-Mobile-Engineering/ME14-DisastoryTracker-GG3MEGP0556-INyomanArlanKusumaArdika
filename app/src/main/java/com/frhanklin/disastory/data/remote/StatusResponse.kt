@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.data.source.remote
+package com.frhanklin.disastory.data.remote
 
 enum class StatusResponse {
     SUCCESS,

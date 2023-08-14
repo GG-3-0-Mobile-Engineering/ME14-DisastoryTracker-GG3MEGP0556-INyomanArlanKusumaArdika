@@ -10,3 +10,14 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.47" apply false
     id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
 }
+
+ext {
+    //dependencies version
+    junitVersion = '4.12'
+    espressoVersion = '3.1.0'
+    androidXTestVersion = '1.2.0'
+    mockitoVersion = '3.6.0'
+    idlingResourceVersion = '3.3.0'
+    androidCoreTestVersion = '2.1.0'
+
+}

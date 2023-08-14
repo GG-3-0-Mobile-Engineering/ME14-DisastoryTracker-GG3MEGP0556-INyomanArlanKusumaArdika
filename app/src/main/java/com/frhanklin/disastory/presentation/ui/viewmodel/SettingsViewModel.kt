@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.presentation.viewmodel
+package com.frhanklin.disastory.presentation.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

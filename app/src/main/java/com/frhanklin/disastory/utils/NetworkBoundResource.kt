@@ -1,11 +1,9 @@
-package com.frhanklin.disastory.data.source
+package com.frhanklin.disastory.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.frhanklin.disastory.data.source.remote.ApiResponse
-import com.frhanklin.disastory.data.source.remote.StatusResponse
-import com.frhanklin.disastory.utils.AppExecutors
-import com.frhanklin.disastory.utils.Resource
+import com.frhanklin.disastory.data.remote.ApiResponse
+import com.frhanklin.disastory.data.remote.StatusResponse
 
 abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors){
 

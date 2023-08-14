@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.data.source.remote.response
+package com.frhanklin.disastory.data.remote.response
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
@@ -7,10 +7,10 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class PetaBencanaReports(
 
-	@field:SerializedName("result")
+    @field:SerializedName("result")
 	val result: Result? = null,
 
-	@field:SerializedName("statusCode")
+    @field:SerializedName("statusCode")
 	val statusCode: Int? = null
 ) : Parcelable
 
@@ -44,75 +44,75 @@ data class FireRadius(
 @Parcelize
 data class DisasterItems(
 
-	@field:SerializedName("coordinates")
+    @field:SerializedName("coordinates")
 	val coordinates: List<Double?>? = null,
 
-	@field:SerializedName("type")
+    @field:SerializedName("type")
 	val type: String? = null,
 
-	@field:SerializedName("properties")
+    @field:SerializedName("properties")
 	val disasterProperties: DisasterProperties? = null,
 
-	@field:SerializedName("arcs")
+    @field:SerializedName("arcs")
 	val arcs: List<List<Int?>?>? = null
 ) : Parcelable
 
 @Parcelize
 data class ReportData(
 
-	@field:SerializedName("personLocation")
+    @field:SerializedName("personLocation")
 	val personLocation: PersonLocation? = null,
 
-	@field:SerializedName("fireLocation")
+    @field:SerializedName("fireLocation")
 	val fireLocation: FireLocation? = null,
 
-	@field:SerializedName("report_type")
+    @field:SerializedName("report_type")
 	val reportType: String? = null,
 
-	@field:SerializedName("fireRadius")
+    @field:SerializedName("fireRadius")
 	val fireRadius: FireRadius? = null,
 
-	@field:SerializedName("fireDistance")
+    @field:SerializedName("fireDistance")
 	val fireDistance: Double? = null,
 
-	@field:SerializedName("structureFailure")
+    @field:SerializedName("structureFailure")
 	val structureFailure: Int? = null,
 
-	@field:SerializedName("airQuality")
+    @field:SerializedName("airQuality")
 	val airQuality: Int? = null,
 
-	@field:SerializedName("visibility")
+    @field:SerializedName("visibility")
 	val visibility: Int? = null,
 
-	@field:SerializedName("flood_depth")
+    @field:SerializedName("flood_depth")
 	val floodDepth: Int? = null,
 
-	@field:SerializedName("volcanicSigns")
+    @field:SerializedName("volcanicSigns")
 	val volcanicSigns: List<Int?>? = null,
 
-	@field:SerializedName("evacuationArea")
+    @field:SerializedName("evacuationArea")
 	val evacuationArea: Boolean? = null,
 
-	@field:SerializedName("evacuationNumber")
+    @field:SerializedName("evacuationNumber")
 	val evacuationNumber: Int? = null
 ) : Parcelable
 
 @Parcelize
 data class Result(
 
-	@field:SerializedName("objects")
+    @field:SerializedName("objects")
 	val objects: Objects? = null,
 
-	@field:SerializedName("bbox")
+    @field:SerializedName("bbox")
 	val bbox: List<Double?>? = null,
 
-	@field:SerializedName("type")
+    @field:SerializedName("type")
 	val type: String? = null,
 
-	@field:SerializedName("transform")
+    @field:SerializedName("transform")
 	val transform: Transform? = null,
 
-	@field:SerializedName("arcs")
+    @field:SerializedName("arcs")
 	val arcs: List<List<List<Int?>?>?>? = null
 
 ) : Parcelable
@@ -130,68 +130,68 @@ data class Transform(
 @Parcelize
 data class Output(
 
-	@field:SerializedName("geometries")
+    @field:SerializedName("geometries")
 	val geometries: List<DisasterItems?>? = null,
 
-	@field:SerializedName("type")
+    @field:SerializedName("type")
 	val type: String? = null
 ) : Parcelable
 
 @Parcelize
 data class DisasterProperties(
 
-	@field:SerializedName("image_url")
+    @field:SerializedName("image_url")
 	val imageUrl: String? = null,
 
-	@field:SerializedName("disaster_type")
+    @field:SerializedName("disaster_type")
 	val disasterType: String? = null,
 
-	@field:SerializedName("created_at")
+    @field:SerializedName("created_at")
 	val createdAt: String? = null,
 
-	@field:SerializedName("source")
+    @field:SerializedName("source")
 	val source: String? = null,
 
-	@field:SerializedName("title")
+    @field:SerializedName("title")
 	val title: String? = null,
 
-	@field:SerializedName("url")
+    @field:SerializedName("url")
 	val url: String? = null,
 
-	@field:SerializedName("tags")
+    @field:SerializedName("tags")
 	val tags: Tags? = null,
 
-	@field:SerializedName("report_data")
+    @field:SerializedName("report_data")
 	val reportData: ReportData? = null,
 
-	@field:SerializedName("pkey")
+    @field:SerializedName("pkey")
 	val pkey: String? = null,
 
-	@field:SerializedName("text")
+    @field:SerializedName("text")
 	val text: String? = null,
 
-	@field:SerializedName("status")
+    @field:SerializedName("status")
 	val status: String? = null,
 
-	@field:SerializedName("area_name")
+    @field:SerializedName("area_name")
 	val areaName: String? = null,
 
-	@field:SerializedName("parent_name")
+    @field:SerializedName("parent_name")
 	val parentName: String? = null,
 
-	@field:SerializedName("city_name")
+    @field:SerializedName("city_name")
 	val cityName: String? = null,
 
-	@field:SerializedName("last_updated")
+    @field:SerializedName("last_updated")
 	val lastUpdated: String? = null,
 
-	@field:SerializedName("geom_id")
+    @field:SerializedName("geom_id")
 	val geomId: String? = null,
 
-	@field:SerializedName("state")
+    @field:SerializedName("state")
 	val state: Int? = null,
 
-	@field:SerializedName("area_id")
+    @field:SerializedName("area_id")
 	val areaId: String? = null
 
 ) : Parcelable

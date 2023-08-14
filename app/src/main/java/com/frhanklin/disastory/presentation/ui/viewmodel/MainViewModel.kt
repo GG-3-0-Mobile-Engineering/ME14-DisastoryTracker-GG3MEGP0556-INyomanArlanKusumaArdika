@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.presentation.viewmodel
+package com.frhanklin.disastory.presentation.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import com.frhanklin.disastory.utils.SettingPreferences
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
+import com.frhanklin.disastory.data.local.entity.DisasterModel
 import com.frhanklin.disastory.domain.repository.AppRepository
 import com.frhanklin.disastory.utils.DisasterUtils
 import com.frhanklin.disastory.utils.Resource
@@ -42,6 +42,7 @@ class MainViewModel @Inject constructor(
     private val _filter = MutableLiveData<String>()
     private val _filterArray = MutableLiveData<ArrayList<String>>()
     val filter: LiveData<String> = _filter
+    val filterArray: LiveData<ArrayList<String>> = _filterArray
 
     fun addFilter(disasterType: String) {
         val listFilter = _filterArray.value ?: ArrayList()

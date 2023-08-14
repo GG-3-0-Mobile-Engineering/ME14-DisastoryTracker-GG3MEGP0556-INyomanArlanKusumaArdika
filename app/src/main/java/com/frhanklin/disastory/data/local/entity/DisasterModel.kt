@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.data.source.local.entity
+package com.frhanklin.disastory.data.local.entity
 
 import android.annotation.SuppressLint
 import android.os.Parcelable

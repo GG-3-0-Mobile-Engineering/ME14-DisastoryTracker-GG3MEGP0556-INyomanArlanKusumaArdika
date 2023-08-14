@@ -1,8 +1,9 @@
-package com.frhanklin.disastory.data.source.local
+package com.frhanklin.disastory.data.repository
 
 import androidx.paging.DataSource
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
-import com.frhanklin.disastory.data.source.local.room.DisasterDao
+import com.frhanklin.disastory.data.local.entity.DisasterModel
+import com.frhanklin.disastory.data.local.dao.DisasterDao
+import com.frhanklin.disastory.domain.repository.LocalRepository
 import com.frhanklin.disastory.utils.SortHelper
 import javax.inject.Inject
 

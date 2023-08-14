@@ -19,11 +19,11 @@
         android:theme="@style/Theme.DisastoryTracker"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.SettingsActivity"
+            android:name=".presentation.ui.activities.SettingsActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.MainActivity"
+            android:name=".presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

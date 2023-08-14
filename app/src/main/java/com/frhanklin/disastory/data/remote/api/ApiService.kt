@@ -1,6 +1,6 @@
-package com.frhanklin.disastory.data.source.remote.api
+package com.frhanklin.disastory.data.remote.api
 
-import com.frhanklin.disastory.data.source.remote.response.PetaBencanaReports
+import com.frhanklin.disastory.data.remote.response.PetaBencanaReports
 import com.frhanklin.disastory.utils.TimeAndDateUtils
 import retrofit2.Call
 import retrofit2.http.GET

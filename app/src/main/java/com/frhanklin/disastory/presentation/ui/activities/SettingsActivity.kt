@@ -1,4 +1,4 @@
-package com.frhanklin.disastory.presentation.ui
+package com.frhanklin.disastory.presentation.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.frhanklin.disastory.R
-import com.frhanklin.disastory.presentation.viewmodel.SettingsViewModel
+import com.frhanklin.disastory.presentation.ui.viewmodel.SettingsViewModel
 import com.frhanklin.disastory.databinding.ActivitySettingsBinding
 import com.frhanklin.disastory.utils.PermissionHandler
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,25 +57,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.switchNotification.setOnCheckedChangeListener{ _: CompoundButton?, isChecked: Boolean ->
             if (isChecked) {
                 settingsViewModel.saveNotificationSettings(true)
-
-//                if (Build.VERSION.SDK_INT >= 33) {
-//                    permissionHandler.requestPermission(Manifest.permission.POST_NOTIFICATIONS, object: PermissionHandler.PermissionListener {
-//                        override fun onPermissionGranted() {
-//                            settingsViewModel.saveNotificationSettings(true)
-////                            Toast.makeText(this@SettingsActivity, R.string.notification_enabled, Toast.LENGTH_SHORT).show()
-//                        }
-//
-//                        override fun onPermissionDenied() {
-//                            settingsViewModel.saveNotificationSettings(false)
-//                            binding.switchNotification.isChecked = false
-////                            Toast.makeText(this@SettingsActivity, R.string.permission_denied, Toast.LENGTH_SHORT).show()
-//                        }
-//                    })
-//                } else {
-//                    settingsViewModel.saveNotificationSettings(true)
-//                    binding.switchNotification.isChecked = true
-////                    Toast.makeText(this@SettingsActivity, R.string.notification_enabled, Toast.LENGTH_SHORT).show()
-//                }
             } else {
                 settingsViewModel.saveNotificationSettings(false)
                 binding.switchNotification.isChecked = false

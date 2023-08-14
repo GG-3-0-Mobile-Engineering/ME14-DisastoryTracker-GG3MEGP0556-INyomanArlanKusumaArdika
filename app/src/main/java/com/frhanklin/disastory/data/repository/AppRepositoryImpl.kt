@@ -1,14 +1,15 @@
-package com.frhanklin.disastory.domain.repository
+package com.frhanklin.disastory.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.frhanklin.disastory.data.source.NetworkBoundResource
-import com.frhanklin.disastory.data.source.local.LocalRepository
-import com.frhanklin.disastory.data.source.local.entity.DisasterModel
-import com.frhanklin.disastory.data.source.remote.ApiResponse
-import com.frhanklin.disastory.data.source.remote.RemoteRepository
-import com.frhanklin.disastory.data.source.remote.response.DisasterItems
+import com.frhanklin.disastory.utils.NetworkBoundResource
+import com.frhanklin.disastory.data.local.entity.DisasterModel
+import com.frhanklin.disastory.data.remote.ApiResponse
+import com.frhanklin.disastory.data.remote.response.DisasterItems
+import com.frhanklin.disastory.domain.repository.AppRepository
+import com.frhanklin.disastory.domain.repository.LocalRepository
+import com.frhanklin.disastory.domain.repository.RemoteRepository
 import com.frhanklin.disastory.utils.AppExecutors
 import com.frhanklin.disastory.utils.Resource
 import javax.inject.Inject
@@ -37,10 +38,6 @@ class AppRepositoryImpl @Inject constructor(
 
             override fun createCall(): LiveData<ApiResponse<List<DisasterItems>>> {
                 return remoteRepository.getDisastersFromApi()
-//                return liveData {
-//                    val response = remoteRepository.getDisastersFromApi()
-//                    response.value?.let { emit(it) }
-//                }
             }
 
             override fun saveCallResult(data: List<DisasterItems>) {
@@ -69,21 +66,5 @@ class AppRepositoryImpl @Inject constructor(
 
         }.asLiveData()
     }
-
-
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: AppRepositoryImpl? = null
-//        fun getInstance(
-//            remoteRepository: RemoteRepository,
-//            localRepository: LocalRepository,
-//            appExecutors: AppExecutors
-//        ) : AppRepositoryImpl {
-//            return INSTANCE ?: synchronized(this) {
-//                INSTANCE ?: AppRepositoryImpl(remoteRepository, localRepository, appExecutors).apply { INSTANCE = this }
-//            }
-//        }
-//    }
-
 
 }
