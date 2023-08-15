@@ -14,10 +14,10 @@ plugins {
 ext {
     //dependencies version
     junitVersion = '4.12'
-    espressoVersion = '3.1.0'
+    espressoVersion = '3.5.1'
     androidXTestVersion = '1.2.0'
     mockitoVersion = '3.6.0'
-    idlingResourceVersion = '3.3.0'
+    idlingResourceVersion = '3.5.1'
     androidCoreTestVersion = '2.1.0'
 
 }

@@ -1,0 +1,385 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DisasterUtils</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.utils</a>
+</div>
+
+<h1>Coverage Summary for Class: DisasterUtils (com.frhanklin.disastory.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DisasterUtils</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57.1%
+  </span>
+  <span class="absValue">
+    (4/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.4%
+  </span>
+  <span class="absValue">
+    (9/140)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.utils
+&nbsp;
+&nbsp;import android.graphics.drawable.Drawable
+&nbsp;import com.frhanklin.disastory.R
+&nbsp;import javax.inject.Inject
+&nbsp;
+<b class="fc">&nbsp;class DisasterUtils @Inject constructor(private val rp: ResourceProvider) {</b>
+&nbsp;
+&nbsp;    fun getRegionCode(location: String): String {
+<b class="fc">&nbsp;        return when(location) {</b>
+<b class="fc">&nbsp;            &quot;Bali&quot; -&gt; {</b>
+<b class="fc">&nbsp;                &quot;ID-BA&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_aceh) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-AC&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_bali) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-BA&quot;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            rp.getString(R.string.city_bangka_belitung) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-BB&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_banten) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-BT&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_bengkulu) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-BE&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_jawa_tengah) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-JT&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_kalimantan_tengah) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-KT&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sulawesi_tengah) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-ST&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_jawa_timur) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-JI&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_kalimantan_timur) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-KI&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_nusa_tenggara_timur) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-NT&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_gorontalo) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-GO&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_dki_jakarta) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-JK&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_jambi) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-JA&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_lampung) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-LA&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_maluku) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-MA&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_kalimantan_utara) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-KU&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_maluku_utara) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-MU&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sulawesi_utara) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SA&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sumatera_utara) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SU&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_papua) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-PA&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_riau) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-RI&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_kepulauan_riau) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-KR&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sulawesi_tenggara) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SG&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_kalimantan_selatan) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-KS&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sulawesi_selatan) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SN&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sumatera_selatan) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SS&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_di_yogyakarta) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-YO&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_jawa_barat) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-JB&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_kalimantan_barat) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-KB&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_nusa_tenggara_barat) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-NB&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_papua_barat) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-PB&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sulawesi_barat) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SR&quot;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            rp.getString(R.string.city_sumatera_barat) -&gt; {</b>
+<b class="nc">&nbsp;                &quot;ID-SB&quot;</b>
+&nbsp;            }
+&nbsp;            else -&gt; {
+<b class="nc">&nbsp;                &quot;&quot;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getRegionString(code: String): String {
+<b class="fc">&nbsp;        val location = when (code) {</b>
+&nbsp;            &quot;ID-AC&quot; -&gt; {
+<b class="fc">&nbsp;                &quot;Aceh&quot;</b>
+&nbsp;            }
+&nbsp;            &quot;ID-BA&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_bali)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-BB&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_bangka_belitung)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-BT&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_banten)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-BE&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_bengkulu)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-JT&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_jawa_tengah)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-KT&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_kalimantan_tengah)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-ST&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sulawesi_tengah)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-JI&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_jawa_timur)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-KI&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_kalimantan_timur)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-NT&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_nusa_tenggara_timur)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-GO&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_gorontalo)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-JK&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_dki_jakarta)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-JA&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_jambi)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-LA&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_lampung)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-MA&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_maluku)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-KU&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_kalimantan_utara)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-MU&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_maluku_utara)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SA&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sulawesi_utara)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SU&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sumatera_utara)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-PA&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_papua)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-RI&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_riau)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-KR&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_kepulauan_riau)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SG&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sulawesi_tenggara)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-KS&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_kalimantan_selatan)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SN&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sulawesi_selatan)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SS&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sumatera_selatan)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-YO&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_di_yogyakarta)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-JB&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_jawa_barat)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-KB&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_kalimantan_barat)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-NB&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_nusa_tenggara_barat)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-PB&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_papua_barat)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SR&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sulawesi_barat)</b>
+&nbsp;            }
+&nbsp;            &quot;ID-SB&quot; -&gt; {
+<b class="nc">&nbsp;                rp.getString(R.string.city_sumatera_barat)</b>
+&nbsp;            }
+&nbsp;            else -&gt; {
+<b class="nc">&nbsp;                &quot;&quot;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return location</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getDisasterType(disasterType: String?): String {
+<b class="fc">&nbsp;        return when (disasterType) {</b>
+<b class="fc">&nbsp;            &quot;flood&quot; -&gt; &quot;Banjir&quot;</b>
+<b class="nc">&nbsp;            rp.getString(R.string.flood) -&gt; rp.getString(R.string.type_flood)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.haze) -&gt; rp.getString(R.string.type_haze)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.wind) -&gt; rp.getString(R.string.type_wind)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.earthquake) -&gt; rp.getString(R.string.type_earthquake)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.volcano) -&gt; rp.getString(R.string.type_volcano)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.fire) -&gt; rp.getString(R.string.type_fire)</b>
+<b class="nc">&nbsp;            else -&gt; rp.getString(R.string.unknown)</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getMarkerIcon(disasterType: String?): Int {
+<b class="nc">&nbsp;        return when (disasterType) {</b>
+<b class="nc">&nbsp;            rp.getString(R.string.flood) -&gt; R.drawable.ic_location_flood</b>
+<b class="nc">&nbsp;            rp.getString(R.string.haze) -&gt; R.drawable.ic_location_haze</b>
+<b class="nc">&nbsp;            rp.getString(R.string.wind) -&gt; R.drawable.ic_location_wind</b>
+<b class="nc">&nbsp;            rp.getString(R.string.earthquake) -&gt; R.drawable.ic_location_earthquake</b>
+<b class="nc">&nbsp;            rp.getString(R.string.volcano) -&gt; R.drawable.ic_location_volcano</b>
+<b class="nc">&nbsp;            rp.getString(R.string.fire) -&gt; R.drawable.ic_location_fire</b>
+<b class="nc">&nbsp;            else -&gt; R.drawable.ic_not_listed_location_24</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getDisasterDefaultImg(disasterType: String?): Int {
+&nbsp;
+<b class="nc">&nbsp;        return when(disasterType) {</b>
+<b class="nc">&nbsp;            rp.getString(R.string.flood) -&gt; R.drawable.img_flood</b>
+<b class="nc">&nbsp;            rp.getString(R.string.haze) -&gt; R.drawable.img_haze</b>
+<b class="nc">&nbsp;            rp.getString(R.string.wind) -&gt; R.drawable.img_wind</b>
+<b class="nc">&nbsp;            rp.getString(R.string.earthquake) -&gt; R.drawable.img_earthquake</b>
+<b class="nc">&nbsp;            rp.getString(R.string.volcano) -&gt; R.drawable.img_volcano</b>
+<b class="nc">&nbsp;            rp.getString(R.string.fire) -&gt; R.drawable.img_fire</b>
+<b class="nc">&nbsp;            else -&gt; R.drawable.ic_not_listed_location_24</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getWarningImage(warningText: String): Drawable {
+<b class="nc">&nbsp;        return when (warningText) {</b>
+<b class="nc">&nbsp;            rp.getString(R.string.warning_no_data) -&gt; rp.getDrawable(R.drawable.img_no_data)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.warning_not_found) -&gt; rp.getDrawable(R.drawable.img_not_found)</b>
+<b class="nc">&nbsp;            rp.getString(R.string.warning_exception) -&gt; rp.getDrawable(R.drawable.img_exception)</b>
+<b class="nc">&nbsp;            else -&gt; rp.getDrawable(R.drawable.img_exception)</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>

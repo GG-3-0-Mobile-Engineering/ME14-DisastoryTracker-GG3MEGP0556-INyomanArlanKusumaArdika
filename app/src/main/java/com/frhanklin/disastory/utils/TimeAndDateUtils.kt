@@ -13,7 +13,10 @@ import java.time.format.DateTimeFormatter
 object TimeAndDateUtils {
 
     fun convertTimeStamp(timestamp: String): String {
+//        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")
+//
         val instant = Instant.parse(timestamp)
+//        val instant = LocalDateTime.parse(timestamp, inputFormatter).atZone(ZoneId.systemDefault()).toInstant()
         val localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd \nHH:mm:ss")
         return localDateTime.format(formatter)
@@ -29,7 +32,7 @@ object TimeAndDateUtils {
         return formatToIso(oneWeekAgo)
     }
 
-    private fun formatToIso(dateTime: ZonedDateTime): String {
+    fun formatToIso(dateTime: ZonedDateTime): String {
         val isoFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")
         return dateTime.format(isoFormat)
     }

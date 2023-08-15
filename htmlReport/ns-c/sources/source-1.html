@@ -1,0 +1,235 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MainViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.presentation.ui.viewmodel</a>
+</div>
+
+<h1>Coverage Summary for Class: MainViewModel (com.frhanklin.disastory.presentation.ui.viewmodel)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (11/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.6%
+  </span>
+  <span class="absValue">
+    (44/47)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MainViewModel$saveThemeSettings$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (12/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94%
+  </span>
+  <span class="absValue">
+    (47/50)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.presentation.ui.viewmodel
+&nbsp;
+&nbsp;import androidx.lifecycle.LiveData
+&nbsp;import androidx.lifecycle.MutableLiveData
+&nbsp;import androidx.lifecycle.ViewModel
+&nbsp;import androidx.lifecycle.asLiveData
+&nbsp;import androidx.lifecycle.viewModelScope
+&nbsp;import androidx.paging.PagedList
+&nbsp;import com.frhanklin.disastory.utils.SettingPreferences
+&nbsp;import com.frhanklin.disastory.data.local.entity.DisasterModel
+&nbsp;import com.frhanklin.disastory.domain.repository.AppRepository
+&nbsp;import com.frhanklin.disastory.utils.DisasterUtils
+&nbsp;import com.frhanklin.disastory.utils.Resource
+&nbsp;import com.frhanklin.disastory.utils.ResourceProvider
+&nbsp;import com.frhanklin.disastory.utils.SortHelper
+&nbsp;import dagger.hilt.android.lifecycle.HiltViewModel
+&nbsp;import kotlinx.coroutines.launch
+&nbsp;import javax.inject.Inject
+&nbsp;
+&nbsp;@HiltViewModel
+<b class="fc">&nbsp;class MainViewModel @Inject constructor(</b>
+<b class="fc">&nbsp;    private val preferences: SettingPreferences,</b>
+<b class="fc">&nbsp;    private val rp: ResourceProvider,</b>
+<b class="fc">&nbsp;    private val repository: AppRepository</b>
+<b class="fc">&nbsp;) : ViewModel() {</b>
+&nbsp;
+&nbsp;    fun getThemeSettings() : LiveData&lt;Boolean&gt; {
+<b class="fc">&nbsp;        return preferences.getThemeSetting().asLiveData()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getNotificationSettings(): LiveData&lt;Boolean&gt; {
+<b class="fc">&nbsp;        return preferences.getNotificationSetting().asLiveData()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun saveThemeSettings(darkModeState: Boolean) {
+<b class="fc">&nbsp;        viewModelScope.launch {</b>
+<b class="fc">&nbsp;            preferences.saveThemeSetting(darkModeState)</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    private val _filter = MutableLiveData&lt;String&gt;()</b>
+<b class="fc">&nbsp;    private val _filterArray = MutableLiveData&lt;ArrayList&lt;String&gt;&gt;()</b>
+<b class="fc">&nbsp;    val filter: LiveData&lt;String&gt; = _filter</b>
+<b class="fc">&nbsp;    val filterArray: LiveData&lt;ArrayList&lt;String&gt;&gt; = _filterArray</b>
+&nbsp;
+&nbsp;    fun addFilter(disasterType: String) {
+<b class="fc">&nbsp;        val listFilter = _filterArray.value ?: ArrayList()</b>
+<b class="fc">&nbsp;        if (!listFilter.contains(disasterType)) {</b>
+<b class="fc">&nbsp;            listFilter.add(disasterType)</b>
+&nbsp;        }
+<b class="fc">&nbsp;        _filterArray.value = listFilter</b>
+<b class="fc">&nbsp;        updateFilter()</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    fun removeFilter(disasterType: String) {
+<b class="fc">&nbsp;        val listFilter = _filterArray.value ?: ArrayList()</b>
+<b class="fc">&nbsp;        if (listFilter.contains(disasterType)) {</b>
+<b class="fc">&nbsp;            listFilter.remove(disasterType)</b>
+&nbsp;        }
+<b class="fc">&nbsp;        _filterArray.value = listFilter</b>
+<b class="fc">&nbsp;        updateFilter()</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private fun updateFilter() {
+<b class="fc">&nbsp;        val listFilter = _filterArray.value as ArrayList&lt;String&gt;</b>
+<b class="fc">&nbsp;        if (listFilter.isNotEmpty()) {</b>
+<b class="fc">&nbsp;            val beginEnd = &quot;\&#39;&quot;</b>
+<b class="fc">&nbsp;            val filterArgs = listFilter.joinToString(&quot;\&#39;, \&#39;&quot;)</b>
+<b class="fc">&nbsp;            _filter.value = beginEnd + filterArgs + beginEnd</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            _filter.value = &quot;&quot;</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private fun getFilter(): String {
+<b class="fc">&nbsp;        println(&quot;Type: ${_filter.value ?: &quot;&quot;}&quot;)</b>
+<b class="fc">&nbsp;        return filter.value ?: &quot;&quot;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    private val _cityId = MutableLiveData&lt;String&gt;()</b>
+<b class="fc">&nbsp;    val cityId: LiveData&lt;String&gt; = _cityId</b>
+&nbsp;
+&nbsp;    private fun getCity(): String {
+<b class="fc">&nbsp;        return _cityId.value ?: &quot;&quot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun setLocation(location: String) {
+<b class="nc">&nbsp;        _cityId.value = DisasterUtils(rp).getRegionCode(location)</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+<b class="fc">&nbsp;    private val _isWarned = MutableLiveData&lt;Boolean&gt;()</b>
+<b class="fc">&nbsp;    private val _warningText = MutableLiveData&lt;String&gt;()</b>
+<b class="fc">&nbsp;    val isWarned: LiveData&lt;Boolean&gt; = _isWarned</b>
+<b class="fc">&nbsp;    val warningText: LiveData&lt;String&gt; = _warningText</b>
+&nbsp;
+&nbsp;    fun setWarn(state: Boolean, msg: String) {
+<b class="fc">&nbsp;        _isWarned.value = state</b>
+<b class="fc">&nbsp;        _warningText.value = msg</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    fun getDisaster(): LiveData&lt;Resource&lt;PagedList&lt;DisasterModel&gt;&gt;&gt; {
+<b class="fc">&nbsp;        return repository.getReportArchive(SortHelper.RECENT, getFilter(), getCity())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>

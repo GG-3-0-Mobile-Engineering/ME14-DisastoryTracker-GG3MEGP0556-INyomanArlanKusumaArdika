@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".presentation.ui.MainActivity"
+    tools:context=".presentation.ui.activities.MainActivity"
     app:umanoPanelHeight="68dp"
     app:umanoShadowHeight="4dp"
     >

@@ -33,6 +33,9 @@ android {
 
 
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -44,6 +47,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    configurations.all {
+        resolutionStrategy {
+            force "org.hamcrest:hamcrest-core:2.2"
+        }
     }
 }
 
@@ -78,8 +86,9 @@ dependencies {
 
     //Room Database
     implementation 'androidx.room:room-runtime:2.5.2'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     kapt 'androidx.room:room-compiler:2.5.2'
-    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+    implementation 'androidx.paging:paging-runtime-ktx:3.2.0'
 
     //Dagger - Hilt
     implementation 'com.google.dagger:hilt-android:2.47'
@@ -93,17 +102,20 @@ dependencies {
 
     //testing
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "org.mockito:mockito-core:3.6.0"
+    testImplementation 'org.mockito:mockito-core:5.4.0'
     testImplementation "org.mockito:mockito-inline:3.6.0"
     testImplementation "io.mockk:mockk:1.13.5"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
 
 
     androidTestImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.5.1"
+    androidTestImplementation('androidx.test:runner:1.5.2')
+    androidTestImplementation('androidx.test:rules:1.5.0')
+    androidTestImplementation('org.hamcrest:hamcrest-core:2.2')
+
     implementation "androidx.test.espresso:espresso-idling-resource:$idlingResourceVersion"
 
 }

@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DisasterModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.data.local.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: DisasterModel (com.frhanklin.disastory.data.local.entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DisasterModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">DisasterModel$Creator</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.data.local.entity
+&nbsp;
+&nbsp;import android.annotation.SuppressLint
+&nbsp;import android.os.Parcelable
+&nbsp;import androidx.room.ColumnInfo
+&nbsp;import androidx.room.Entity
+&nbsp;import androidx.room.PrimaryKey
+&nbsp;import kotlinx.android.parcel.Parcelize
+&nbsp;import org.jetbrains.annotations.NotNull
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;@Suppress(&quot;DEPRECATED_ANNOTATION&quot;)</b>
+&nbsp;@SuppressLint(&quot;KotlinNullnessAnnotation&quot;)
+&nbsp;@Entity(tableName = &quot;disaster&quot;)
+&nbsp;@Parcelize
+<b class="nc">&nbsp;data class DisasterModel (</b>
+&nbsp;
+<b class="nc">&nbsp;    @PrimaryKey</b>
+&nbsp;    @ColumnInfo(&quot;key&quot;)
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var key: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;created_at&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var createdAt: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;type&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var type: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;image&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var image: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;title&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var title: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;text&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    val text: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;region_code&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var regionCode: String,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;lat&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var latitude: Double,</b>
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;lng&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    var longitude: Double,</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    @ColumnInfo(&quot;last_updated&quot;)</b>
+&nbsp;    @NotNull
+<b class="nc">&nbsp;    val lastUpdated: String</b>
+&nbsp;
+&nbsp;): Parcelable
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>

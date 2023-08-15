@@ -2,7 +2,6 @@ package com.frhanklin.disastory.presentation.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -21,13 +21,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.frhanklin.disastory.presentation.ui.viewmodel.MainViewModel
 import com.frhanklin.disastory.R
 import com.frhanklin.disastory.data.local.entity.DisasterModel
-import com.frhanklin.disastory.data.remote.response.DisasterItems
 import com.frhanklin.disastory.databinding.ActivityMainBinding
 import com.frhanklin.disastory.databinding.BottomDisasterListBinding
 import com.frhanklin.disastory.presentation.ui.adapters.DisasterAdapter
+import com.frhanklin.disastory.presentation.ui.viewmodel.MainViewModel
 import com.frhanklin.disastory.utils.BitmapUtils
 import com.frhanklin.disastory.utils.DisasterUtils
 import com.frhanklin.disastory.utils.NotificationWorker
@@ -110,6 +109,11 @@ class MainActivity : AppCompatActivity(), DisasterAdapter.OnItemClickCallback {
                     }
                     Status.SUCCESS -> {
                         showLoading(false)
+
+                        mapFragment.getMapAsync {
+                            it.clear()
+                        }
+                        it.data?.let { it1 -> setMapPoints(it1) }
                         disasterAdapter.submitList(it.data)
                         disasterAdapter.setOnItemClickCallback(this)
                         disasterAdapter.notifyDataSetChanged()
@@ -382,49 +386,49 @@ class MainActivity : AppCompatActivity(), DisasterAdapter.OnItemClickCallback {
 
 
 
-    private fun setMapPoints(list: ArrayList<DisasterItems>) {
+    private fun setMapPoints(list: PagedList<DisasterModel>) {
         var lastLoc = LatLng(-0.7893, 113.9213)
         for (item in list) {
-            val latitude = String.format("%.2f", item.coordinates?.get(0)?:0.0).toDouble()
-            val longitude = String.format("%.2f", item.coordinates?.get(1)?:0.0).toDouble()
-            val location = LatLng(latitude, longitude)
-            val vectorDrawable = VectorDrawableCompat.create(
-                resources,
-                disasterUtils.getMarkerIcon(item.disasterProperties?.disasterType),
-                null
-            )
-
-            val markerTitle = disasterUtils.getDisasterType(item.disasterProperties?.disasterType)
-            val markerSubtitle = disasterUtils.getRegionString(item.disasterProperties?.tags?.instanceRegionCode ?:"")
-
-
-
-
-            val bitmap = BitmapUtils().vectorToBitmap(vectorDrawable)
-
-            mapFragment.getMapAsync {googleMap ->
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(location)
-                        .title(markerTitle)
-                        .snippet(markerSubtitle)
-                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                )
-            }
-//            lastLoc = location
+            generateSingleMapPoint(item)
         }
         mapFragment.getMapAsync {
             it.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLoc, 5f))
         }
-
     }
 
-    override fun onItemClicked(latitude: Double, longitude: Double) {
+    private fun generateSingleMapPoint(item: DisasterModel) {
+        val latitude = item.longitude
+        val longitude = item.latitude
+        val location = LatLng(latitude, longitude)
+        val vectorDrawable = VectorDrawableCompat.create(
+            resources,
+            disasterUtils.getMarkerIcon(item.type),
+            null
+        )
+
+        val markerTitle = disasterUtils.getDisasterType(item.type)
+        val markerSubtitle = disasterUtils.getRegionString(item.regionCode ?:"")
+
+        val bitmap = BitmapUtils().vectorToBitmap(vectorDrawable)
+
+        mapFragment.getMapAsync {googleMap ->
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(location)
+                    .title(markerTitle)
+                    .snippet(markerSubtitle)
+                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+            )
+        }
+    }
+
+    override fun onItemClicked(disaster: DisasterModel) {
         mapFragment.getMapAsync {
+            generateSingleMapPoint(disaster)
             it.animateCamera(CameraUpdateFactory.zoomOut())
             it.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    LatLng(latitude, longitude), 10f)
+                    LatLng(disaster.longitude, disaster.latitude), 10f)
             )
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 

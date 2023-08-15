@@ -8,12 +8,16 @@ class DisasterUtils @Inject constructor(private val rp: ResourceProvider) {
 
     fun getRegionCode(location: String): String {
         return when(location) {
+            "Bali" -> {
+                "ID-BA"
+            }
             rp.getString(R.string.city_aceh) -> {
                 "ID-AC"
             }
             rp.getString(R.string.city_bali) -> {
                 "ID-BA"
             }
+
             rp.getString(R.string.city_bangka_belitung) -> {
                 "ID-BB"
             }
@@ -119,7 +123,7 @@ class DisasterUtils @Inject constructor(private val rp: ResourceProvider) {
     fun getRegionString(code: String): String {
         val location = when (code) {
             "ID-AC" -> {
-                rp.getString(R.string.city_aceh)
+                "Aceh"
             }
             "ID-BA" -> {
                 rp.getString(R.string.city_bali)
@@ -229,6 +233,7 @@ class DisasterUtils @Inject constructor(private val rp: ResourceProvider) {
 
     fun getDisasterType(disasterType: String?): String {
         return when (disasterType) {
+            "flood" -> "Banjir"
             rp.getString(R.string.flood) -> rp.getString(R.string.type_flood)
             rp.getString(R.string.haze) -> rp.getString(R.string.type_haze)
             rp.getString(R.string.wind) -> rp.getString(R.string.type_wind)

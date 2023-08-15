@@ -1,0 +1,253 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > NotificationWorker</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.utils</a>
+</div>
+
+<h1>Coverage Summary for Class: NotificationWorker (com.frhanklin.disastory.utils)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NotificationWorker</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/33)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">NotificationWorker$Companion</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">NotificationWorker$getFloodDataFromRemote$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/39)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.utils
+&nbsp;
+&nbsp;import android.app.NotificationChannel
+&nbsp;import android.app.NotificationManager
+&nbsp;import android.content.Context
+&nbsp;import android.os.Build
+&nbsp;import androidx.core.app.NotificationCompat
+&nbsp;import androidx.work.Worker
+&nbsp;import androidx.work.WorkerParameters
+&nbsp;import com.frhanklin.disastory.R
+&nbsp;import com.frhanklin.disastory.data.remote.api.ApiConfig
+&nbsp;import com.frhanklin.disastory.data.remote.response.DisasterItems
+&nbsp;import com.frhanklin.disastory.data.remote.response.PetaBencanaReports
+&nbsp;import retrofit2.Call
+&nbsp;import retrofit2.Callback
+&nbsp;import retrofit2.Response
+&nbsp;import java.util.concurrent.TimeUnit
+&nbsp;
+<b class="nc">&nbsp;class NotificationWorker(c: Context, workerParams: WorkerParameters) : Worker(c, workerParams) {</b>
+&nbsp;
+<b class="nc">&nbsp;    companion object {</b>
+<b class="nc">&nbsp;        private val TAG = NotificationWorker::class.java.simpleName</b>
+&nbsp;
+&nbsp;        const val NOTIFICATION_ID_FLOOD_WARNING = 1
+&nbsp;        const val CHANNEL_ID = &quot;channel_disastory&quot;
+&nbsp;        const val CHANNEL_NAME = &quot;disastory_notification&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    override fun doWork(): Result {
+<b class="nc">&nbsp;        while (!isStopped) {</b>
+<b class="nc">&nbsp;            showNotification()</b>
+<b class="nc">&nbsp;            Thread.sleep(TimeUnit.MINUTES.toMillis(15))</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return Result.success()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun showNotification() {
+<b class="nc">&nbsp;        val report = getFloodData()</b>
+&nbsp;
+&nbsp;//      Getting recent flood report that has state 3 / 4
+<b class="nc">&nbsp;        lateinit var recent : DisasterItems</b>
+<b class="nc">&nbsp;        for (item in report.result?.objects?.output?.geometries!!) {</b>
+<b class="nc">&nbsp;            if (item != null &amp;&amp; item.disasterProperties?.state!! &gt;= 3) {</b>
+<b class="nc">&nbsp;                recent = item</b>
+<b class="nc">&nbsp;                break</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        showFloodWarningNotification(</b>
+<b class="nc">&nbsp;            title = &quot;Banjir terdeteksi!&quot;,</b>
+<b class="nc">&nbsp;            description = &quot;Lokasi: ${recent.disasterProperties!!.cityName} | Ketinggian &gt; 70cm&quot;</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun getFloodData(): PetaBencanaReports {
+&nbsp;//        return getFloodDataFromRemote()
+<b class="nc">&nbsp;        return getFloodDataFromDummyy()</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    private fun getFloodDataFromDummyy(): PetaBencanaReports = DisastoryDummyData.getDummyFloodReports()</b>
+&nbsp;
+&nbsp;    private fun getFloodDataFromRemote(): PetaBencanaReports {
+<b class="nc">&nbsp;        val client = ApiConfig.getApiService().getFloodsStates()</b>
+<b class="nc">&nbsp;        var report = PetaBencanaReports(null, null)</b>
+<b class="nc">&nbsp;        client.enqueue(object: Callback&lt;PetaBencanaReports&gt; {</b>
+&nbsp;            override fun onResponse(
+&nbsp;                call: Call&lt;PetaBencanaReports&gt;,
+&nbsp;                response: Response&lt;PetaBencanaReports&gt;
+&nbsp;            ) {
+<b class="nc">&nbsp;                if (response.isSuccessful) {</b>
+<b class="nc">&nbsp;                    val responseBody = response.body()</b>
+<b class="nc">&nbsp;                    report = responseBody as PetaBencanaReports</b>
+&nbsp;                } else {
+&nbsp;
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            override fun onFailure(call: Call&lt;PetaBencanaReports&gt;, t: Throwable) {
+&nbsp;
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+&nbsp;        })
+<b class="nc">&nbsp;        return report</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun showFloodWarningNotification(title: String, description: String?) {
+<b class="nc">&nbsp;        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager</b>
+<b class="nc">&nbsp;        val notification: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)</b>
+<b class="nc">&nbsp;            .setSmallIcon(R.drawable.ic_notification_important_24)</b>
+<b class="nc">&nbsp;            .setContentTitle(title)</b>
+<b class="nc">&nbsp;            .setContentText(description)</b>
+<b class="nc">&nbsp;            .setPriority(NotificationCompat.PRIORITY_HIGH)</b>
+<b class="nc">&nbsp;            .setDefaults(NotificationCompat.DEFAULT_ALL)</b>
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {</b>
+<b class="nc">&nbsp;            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)</b>
+<b class="nc">&nbsp;            notification.setChannelId(CHANNEL_ID)</b>
+<b class="nc">&nbsp;            notificationManager.createNotificationChannel(channel)</b>
+&nbsp;        }
+<b class="nc">&nbsp;        notificationManager.notify(NOTIFICATION_ID_FLOOD_WARNING, notification.build())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>

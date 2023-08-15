@@ -8,7 +8,6 @@ import com.frhanklin.disastory.data.remote.response.PetaBencanaReports
 import com.frhanklin.disastory.data.remote.response.ReportData
 import com.frhanklin.disastory.data.remote.response.Result
 import com.frhanklin.disastory.data.remote.response.Tags
-import com.frhanklin.disastory.data.remote.response.Transform
 import kotlin.random.Random
 
 object DisastoryDummyData {
@@ -45,7 +44,6 @@ object DisastoryDummyData {
             )
             dummyDisasterItems.add(
                 DisasterItems(
-                    type = "Point",
                     disasterProperties = DisasterProperties(
                         imageUrl = null,
                         disasterType = disasterType,
@@ -124,7 +122,6 @@ object DisastoryDummyData {
             )
             dummyDisasterItems.add(
                 DisasterItems(
-                    type = "Polygon",
                     disasterProperties = DisasterProperties(
                         imageUrl = null,
                         disasterType = "flood",
@@ -137,8 +134,7 @@ object DisastoryDummyData {
                         cityName = "Jakarta",
                         state = state,
                         lastUpdated = "2016-12-19T13:53:52.274Z"
-                    ),
-                    arcs = listOf(listOf(0))
+                    )
                 )
             )
         }
@@ -159,16 +155,8 @@ object DisastoryDummyData {
             result = Result(
                 objects = Objects(
                     output = Output(
-                        geometries = additionalItems,
-                        type = "GeometryCollection"
+                        geometries = additionalItems
                     )
-                ),
-                type = "Topology",
-                arcs = emptyList(),
-                bbox = listOf(106.8329505207, -6.9813433971, 110.3178483392, -6.1807951369),
-                transform = Transform(
-                    scale = listOf(0.0000003311331833192323, 0.00000032713269326930546),
-                    translate = listOf(106.7917869997, -6.158925)
                 )
             ),
             statusCode = 200
@@ -187,16 +175,8 @@ object DisastoryDummyData {
             result = Result(
                 objects = Objects(
                     output = Output(
-                        geometries = additionalItems,
-                        type = "GeometryCollection"
+                        geometries = additionalItems
                     )
-                ),
-                type = "Topology",
-                arcs = emptyList(),
-                bbox = listOf(106.8329505207, -6.9813433971, 110.3178483392, -6.1807951369),
-                transform = Transform(
-                    scale = listOf(0.0000003311331833192323, 0.00000032713269326930546),
-                    translate = listOf(106.7917869997, -6.158925)
                 )
             ),
             statusCode = 200
@@ -210,70 +190,11 @@ object DisastoryDummyData {
         return PetaBencanaReports(
             statusCode = 200,
             result = Result(
-                type = "Topology",
                 objects = Objects(
                     output = Output(
-                        type = "GeometryCollection",
                         geometries = additionalItems
                     )
-                ),
-                arcs = listOf(
-                    listOf(
-                        listOf(9999, 7847),
-                        listOf(-507, -6),
-                        listOf(-695, -70),
-                        listOf(-317, -221),
-                        listOf(-761, -18),
-                        listOf(-516, 98),
-                        listOf(-641, -61),
-                        listOf(-649, -119),
-                        listOf(-169, -762),
-                        listOf(-181, -519),
-                        listOf(48, -602),
-                        listOf(-130, -162),
-                        listOf(64, -1235),
-                        listOf(81, -2351),
-                        listOf(136, -1098),
-                        listOf(15, -675),
-                        listOf(-1250, -40),
-                        listOf(-879, -6),
-                        listOf(-924, 217),
-                        listOf(-924, 425),
-                        listOf(-1800, 138),
-                        listOf(830, 1540),
-                        listOf(565, 1455),
-                        listOf(764, 1975),
-                        listOf(1018, 2079),
-                        listOf(384, 788),
-                        listOf(389, 1061),
-                        listOf(1398, -76),
-                        listOf(296, -25),
-                        listOf(360, 6),
-                        listOf(392, -9),
-                        listOf(360, -9),
-                        listOf(377, 12),
-                        listOf(323, 25),
-                        listOf(354, 76),
-                        listOf(296, 89),
-                        listOf(211, 42),
-                        listOf(290, 52),
-                        listOf(217, 28),
-                        listOf(341, 110),
-                        listOf(43, -67),
-                        listOf(57, -174),
-                        listOf(109, -159),
-                        listOf(154, -257),
-                        listOf(115, -370),
-                        listOf(99, -346),
-                        listOf(124, -357),
-                        listOf(133, -422)
-                    )
-                ),
-                transform = Transform(
-                    scale = listOf(0.0000003311331833192323, 0.00000032713269326930546),
-                    translate = listOf(106.7917869997, -6.158925)
-                ),
-                bbox = listOf(106.7917869997, -6.158925, 106.7950980004, -6.1556540002)
+                )
             )
         )
     }

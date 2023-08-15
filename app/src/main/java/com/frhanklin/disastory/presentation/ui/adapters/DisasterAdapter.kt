@@ -19,7 +19,7 @@ class DisasterAdapter(
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
-        fun onItemClicked(latitude: Double, longitude: Double)
+        fun onItemClicked(disaster: DisasterModel)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -44,7 +44,7 @@ class DisasterAdapter(
                 .into(binding.ivDisasterImage)
 
             binding.itemDisaster.setOnClickListener {
-                onItemClickCallback.onItemClicked(disaster.latitude, disaster.longitude)
+                onItemClickCallback.onItemClicked(disaster)
 
             }
 

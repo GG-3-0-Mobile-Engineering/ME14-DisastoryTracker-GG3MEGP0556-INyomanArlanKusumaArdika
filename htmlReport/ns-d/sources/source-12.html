@@ -1,0 +1,105 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ResourceProvider</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.utils</a>
+</div>
+
+<h1>Coverage Summary for Class: ResourceProvider (com.frhanklin.disastory.utils)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ResourceProvider$Subclass0</td>
+  </tr>
+  <tr>
+    <td class="name">ResourceProvider$Subclass0$auxiliary$hgrhghI2</td>
+  </tr>
+  <tr>
+    <td class="name">ResourceProvider$Subclass0$auxiliary$nuS3z3zn</td>
+  </tr>
+  <tr>
+    <td class="name">ResourceProvider$Subclass0$auxiliary$tdcofBrb</td>
+  </tr>
+  <tr>
+    <td class="name">ResourceProvider$Subclass0$auxiliary$tkxeLfJT</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.utils
+&nbsp;
+&nbsp;import android.content.Context
+&nbsp;import android.graphics.drawable.Drawable
+&nbsp;import javax.inject.Inject
+&nbsp;
+&nbsp;interface ResourceProvider {
+&nbsp;    fun getString(resourceId: Int): String
+&nbsp;    fun getDrawable(resourceId: Int): Drawable
+&nbsp;}
+&nbsp;
+&nbsp;class AndroidResourceProvider @Inject constructor(
+&nbsp;    private val context: Context
+&nbsp;): ResourceProvider {
+&nbsp;    override fun getString(resourceId: Int): String {
+&nbsp;        return context.getString(resourceId)
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun getDrawable(resourceId: Int): Drawable {
+&nbsp;        return context.getDrawable(resourceId) as Drawable
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>

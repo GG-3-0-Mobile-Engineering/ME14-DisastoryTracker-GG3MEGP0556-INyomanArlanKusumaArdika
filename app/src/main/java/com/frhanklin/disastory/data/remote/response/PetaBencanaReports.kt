@@ -23,7 +23,6 @@ data class Objects(
 
 @Parcelize
 data class FireLocation(
-
 	@field:SerializedName("lng")
 	val lng: Double? = null,
 
@@ -33,7 +32,6 @@ data class FireLocation(
 
 @Parcelize
 data class FireRadius(
-
 	@field:SerializedName("lng")
 	val lng: Double? = null,
 
@@ -43,18 +41,11 @@ data class FireRadius(
 
 @Parcelize
 data class DisasterItems(
-
     @field:SerializedName("coordinates")
 	val coordinates: List<Double?>? = null,
 
-    @field:SerializedName("type")
-	val type: String? = null,
-
     @field:SerializedName("properties")
-	val disasterProperties: DisasterProperties? = null,
-
-    @field:SerializedName("arcs")
-	val arcs: List<List<Int?>?>? = null
+	val disasterProperties: DisasterProperties? = null
 ) : Parcelable
 
 @Parcelize
@@ -99,42 +90,14 @@ data class ReportData(
 
 @Parcelize
 data class Result(
-
     @field:SerializedName("objects")
-	val objects: Objects? = null,
-
-    @field:SerializedName("bbox")
-	val bbox: List<Double?>? = null,
-
-    @field:SerializedName("type")
-	val type: String? = null,
-
-    @field:SerializedName("transform")
-	val transform: Transform? = null,
-
-    @field:SerializedName("arcs")
-	val arcs: List<List<List<Int?>?>?>? = null
-
-) : Parcelable
-
-@Parcelize
-data class Transform(
-
-	@field:SerializedName("scale")
-	val scale: List<Double?>? = null,
-
-	@field:SerializedName("translate")
-	val translate: List<Double?>? = null
+	val objects: Objects? = null
 ) : Parcelable
 
 @Parcelize
 data class Output(
-
     @field:SerializedName("geometries")
-	val geometries: List<DisasterItems?>? = null,
-
-    @field:SerializedName("type")
-	val type: String? = null
+	val geometries: List<DisasterItems?>? = null
 ) : Parcelable
 
 @Parcelize

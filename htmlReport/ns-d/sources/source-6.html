@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DummyData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.utils</a>
+</div>
+
+<h1>Coverage Summary for Class: DummyData (com.frhanklin.disastory.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DummyData</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.utils
+&nbsp;
+&nbsp;import com.frhanklin.disastory.data.local.entity.DisasterModel
+&nbsp;
+&nbsp;object DummyData {
+&nbsp;
+&nbsp;    fun getDummyDisaster(): List&lt;DisasterModel&gt; {
+<b class="nc">&nbsp;        val dummyFlood = arrayListOf&lt;DisasterModel&gt;(</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;1&quot;, &quot;flood&quot;, -8.4095, 115.1889, &quot;ID-BA&quot;),</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;2&quot;, &quot;flood&quot;, 4.6951, 96.7494, &quot;ID-AC&quot;),</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;3&quot;, &quot;flood&quot;, 0.5387, 116.4194, &quot;ID-KI&quot;),</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;4&quot;, &quot;flood&quot;, -6.2088, 106.8456, &quot;ID-JK&quot;),</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;5&quot;, &quot;flood&quot;, -3.0926, 115.2838, &quot;ID-KS&quot;)</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyHaze = arrayListOf(</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;6&quot;, &quot;haze&quot;, -6.4058, 106.0640, &quot;ID-BT&quot;) // Banten</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyVolcano = arrayListOf(</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;7&quot;, &quot;volcano&quot;, -8.0652, 115.4207, &quot;ID-BA&quot;), // Bali</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;8&quot;, &quot;volcano&quot;, -7.2575, 112.7521, &quot;ID-JI&quot;) // East Java</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyEarthquake = arrayListOf(</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;9&quot;, &quot;earthquake&quot;, -8.5833, 116.1167, &quot;ID-NB&quot;), // Nusa Tenggara Barat</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;10&quot;, &quot;earthquake&quot;, -0.5021, 117.1535, &quot;ID-KT&quot;) // Kalimantan Tengah</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyWind = arrayListOf(</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;11&quot;, &quot;wind&quot;, -7.2575, 112.7521, &quot;ID-JI&quot;) // East Java</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyFire = arrayListOf(</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;12&quot;, &quot;fire&quot;, -6.2088, 106.8456, &quot;ID-JK&quot;), // Jakarta</b>
+<b class="nc">&nbsp;            getDummyDisasterSingle(&quot;13&quot;, &quot;fire&quot;, -7.2575, 112.7521, &quot;ID-JI&quot;) // East Java</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val returnDummyData = dummyFlood + dummyHaze + dummyVolcano + dummyEarthquake + dummyWind + dummyFire</b>
+<b class="nc">&nbsp;        returnDummyData.shuffled()</b>
+&nbsp;
+&nbsp;        // Combine all dummy data
+<b class="nc">&nbsp;        return returnDummyData</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getDummyDisasterSingle(key: String, type: String, lat: Double, lng: Double, city: String): DisasterModel{
+<b class="nc">&nbsp;        return DisasterModel(</b>
+<b class="nc">&nbsp;            key,</b>
+<b class="nc">&nbsp;            TimeAndDateUtils.getCurrentDate(),</b>
+<b class="nc">&nbsp;            type,</b>
+<b class="nc">&nbsp;            &quot;&quot;,</b>
+<b class="nc">&nbsp;            &quot;Dummy Title&quot;,</b>
+<b class="nc">&nbsp;            &quot;Dummy Text&quot;,</b>
+<b class="nc">&nbsp;            city,</b>
+<b class="nc">&nbsp;            lat,</b>
+<b class="nc">&nbsp;            lng,</b>
+<b class="nc">&nbsp;            &quot;&quot;</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,306 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DisastoryDummyData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.frhanklin.disastory.utils</a>
+</div>
+
+<h1>Coverage Summary for Class: DisastoryDummyData (com.frhanklin.disastory.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DisastoryDummyData</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/112)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.frhanklin.disastory.utils
+&nbsp;
+&nbsp;import com.frhanklin.disastory.data.remote.response.DisasterItems
+&nbsp;import com.frhanklin.disastory.data.remote.response.DisasterProperties
+&nbsp;import com.frhanklin.disastory.data.remote.response.Objects
+&nbsp;import com.frhanklin.disastory.data.remote.response.Output
+&nbsp;import com.frhanklin.disastory.data.remote.response.PetaBencanaReports
+&nbsp;import com.frhanklin.disastory.data.remote.response.ReportData
+&nbsp;import com.frhanklin.disastory.data.remote.response.Result
+&nbsp;import com.frhanklin.disastory.data.remote.response.Tags
+&nbsp;import kotlin.random.Random
+&nbsp;
+&nbsp;object DisastoryDummyData {
+&nbsp;
+&nbsp;    private fun generateRandomCoordinates(minLat: Double, maxLat: Double, minLng: Double, maxLng: Double): List&lt;Double&gt; {
+<b class="nc">&nbsp;        val lat = Random.nextDouble(minLat, maxLat)</b>
+<b class="nc">&nbsp;        val lng = Random.nextDouble(minLng, maxLng)</b>
+<b class="nc">&nbsp;        return listOf(lat, lng)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Function to generate multiple DisasterItems with random coordinates within Indonesia
+&nbsp;    private fun generateDummyDisasterItems(count: Int, disasterType: String, regionCode: String): List&lt;DisasterItems&gt; {
+<b class="nc">&nbsp;        val regions = mapOf(</b>
+<b class="nc">&nbsp;            &quot;ID-AC&quot; to Pair(4.0, 6.0), // Aceh</b>
+<b class="nc">&nbsp;            &quot;ID-BA&quot; to Pair(-9.0, -8.0), // Bali</b>
+<b class="nc">&nbsp;            &quot;ID-JK&quot; to Pair(-6.4, -5.9), // Jakarta</b>
+<b class="nc">&nbsp;            &quot;ID-KS&quot; to Pair(-4.0, -3.0), // Kalimantan Selatan</b>
+<b class="nc">&nbsp;            &quot;ID-JB&quot; to Pair(-7.7, -5.6), // Jawa Barat</b>
+<b class="nc">&nbsp;            &quot;ID-JI&quot; to Pair(-8.6, -5.6), // Jawa Timur</b>
+<b class="nc">&nbsp;            &quot;ID-KB&quot; to Pair(-7.0, -5.6), // Kalimantan Barat</b>
+<b class="nc">&nbsp;            &quot;ID-KT&quot; to Pair(-7.0, -5.0), // Kalimantan Tengah</b>
+<b class="nc">&nbsp;            &quot;ID-KI&quot; to Pair(-5.0, -2.5) // Kalimantan Timur</b>
+&nbsp;            // Add more regions as needed
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyDisasterItems = mutableListOf&lt;DisasterItems&gt;()</b>
+&nbsp;
+<b class="nc">&nbsp;        repeat(count) {</b>
+<b class="nc">&nbsp;            val coordinates = generateRandomCoordinates(</b>
+<b class="nc">&nbsp;                regions[regionCode]?.first ?: -11.0,</b>
+<b class="nc">&nbsp;                regions[regionCode]?.second ?: 6.0,</b>
+<b class="nc">&nbsp;                95.0,</b>
+<b class="nc">&nbsp;                141.0</b>
+&nbsp;            )
+<b class="nc">&nbsp;            dummyDisasterItems.add(</b>
+<b class="nc">&nbsp;                DisasterItems(</b>
+<b class="nc">&nbsp;                    disasterProperties = DisasterProperties(</b>
+<b class="nc">&nbsp;                        imageUrl = null,</b>
+<b class="nc">&nbsp;                        disasterType = disasterType,</b>
+<b class="nc">&nbsp;                        createdAt = &quot;2023-07-26T00:00:00.000Z&quot;,</b>
+<b class="nc">&nbsp;                        source = &quot;dummy&quot;,</b>
+<b class="nc">&nbsp;                        text = &quot;Dummy data for $disasterType&quot;,</b>
+<b class="nc">&nbsp;                        reportData = ReportData(reportType = disasterType, fireDistance = null),</b>
+<b class="nc">&nbsp;                        tags = Tags(instanceRegionCode = regionCode)</b>
+&nbsp;                    ),
+<b class="nc">&nbsp;                    coordinates = coordinates</b>
+&nbsp;                )
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return dummyDisasterItems</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun getDummyReportsItems(): List&lt;DisasterItems&gt; {
+<b class="nc">&nbsp;        val jsonDisasterItems = mutableListOf&lt;DisasterItems&gt;()</b>
+<b class="nc">&nbsp;        jsonDisasterItems.addAll(generateDummyDisasterItems(2, &quot;flood&quot;, &quot;ID-SU&quot;)) // North Sumatera</b>
+<b class="nc">&nbsp;        jsonDisasterItems.addAll(generateDummyDisasterItems(3, &quot;haze&quot;, &quot;ID-BA&quot;)) // Bali</b>
+<b class="nc">&nbsp;        jsonDisasterItems.addAll(generateDummyDisasterItems(1, &quot;wind&quot;, &quot;ID-JK&quot;)) // Jakarta</b>
+<b class="nc">&nbsp;        jsonDisasterItems.addAll(generateDummyDisasterItems(4, &quot;earthquake&quot;, &quot;ID-KS&quot;)) // Kalimantan Selatan</b>
+<b class="nc">&nbsp;        jsonDisasterItems.addAll(generateDummyDisasterItems(2, &quot;volcano&quot;, &quot;ID-JI&quot;)) // Jawa Timur</b>
+<b class="nc">&nbsp;        jsonDisasterItems.addAll(generateDummyDisasterItems(5, &quot;fire&quot;, &quot;ID-KT&quot;)) // Kalimantan Tengah</b>
+<b class="nc">&nbsp;        return jsonDisasterItems</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun getDummyReportsItems(paramType: String, paramValue: String): List&lt;DisasterItems&gt; {
+<b class="nc">&nbsp;        val jsonDisasterItems = mutableListOf&lt;DisasterItems&gt;()</b>
+<b class="nc">&nbsp;        if (paramType == &quot;filter&quot;) {</b>
+&nbsp;//            return getDummyReportsItems(count, disasterType = paramValue, &quot;ÏD-JK&quot;)
+<b class="nc">&nbsp;            jsonDisasterItems.addAll(generateDummyDisasterItems(3, paramValue, &quot;ID-SU&quot;))</b>
+&nbsp;
+&nbsp;        } else {
+<b class="nc">&nbsp;            jsonDisasterItems.addAll(generateDummyDisasterItems(3, &quot;flood&quot;, paramValue))</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return jsonDisasterItems</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun getDummyReportsItems(count: Int, disasterType: String, regionCode: String): List&lt;DisasterItems&gt; {
+<b class="nc">&nbsp;        val jsonDisasterItems = mutableListOf&lt;DisasterItems&gt;()</b>
+<b class="nc">&nbsp;        if (disasterType == &quot;&quot;) {</b>
+<b class="nc">&nbsp;            return getDummyReportsItems()</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            jsonDisasterItems.addAll(generateDummyDisasterItems(count, disasterType, regionCode))</b>
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        return jsonDisasterItems</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Function to generate multiple DisasterItems with random coordinates within Indonesia for JSON 2
+&nbsp;    private fun generateDummyDisasterFloodsItems(count: Int, regionCode: String): List&lt;DisasterItems&gt; {
+<b class="nc">&nbsp;        val regions = mapOf(</b>
+<b class="nc">&nbsp;            &quot;ID-AC&quot; to Pair(4.0, 6.0), // Aceh</b>
+<b class="nc">&nbsp;            &quot;ID-BA&quot; to Pair(-9.0, -8.0), // Bali</b>
+<b class="nc">&nbsp;            &quot;ID-JK&quot; to Pair(-6.4, -5.9), // Jakarta</b>
+<b class="nc">&nbsp;            &quot;ID-KS&quot; to Pair(-4.0, -3.0), // Kalimantan Selatan</b>
+<b class="nc">&nbsp;            &quot;ID-JB&quot; to Pair(-7.7, -5.6), // Jawa Barat</b>
+<b class="nc">&nbsp;            &quot;ID-JI&quot; to Pair(-8.6, -5.6), // Jawa Timur</b>
+<b class="nc">&nbsp;            &quot;ID-KB&quot; to Pair(-7.0, -5.6), // Kalimantan Barat</b>
+<b class="nc">&nbsp;            &quot;ID-KT&quot; to Pair(-7.0, -5.0), // Kalimantan Tengah</b>
+<b class="nc">&nbsp;            &quot;ID-KI&quot; to Pair(-5.0, -2.5) // Kalimantan Timur</b>
+&nbsp;            // Add more regions as needed
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        val dummyDisasterItems = mutableListOf&lt;DisasterItems&gt;()</b>
+&nbsp;
+<b class="nc">&nbsp;        repeat(count) {</b>
+<b class="nc">&nbsp;            val state = (3..4).random() // Generate random state value ranging from 1 to 4</b>
+<b class="nc">&nbsp;            val coordinates = generateRandomCoordinates(</b>
+<b class="nc">&nbsp;                regions[regionCode]?.first ?: -11.0,</b>
+<b class="nc">&nbsp;                regions[regionCode]?.second ?: 6.0,</b>
+<b class="nc">&nbsp;                106.7917869997,</b>
+<b class="nc">&nbsp;                106.7950980004</b>
+&nbsp;            )
+<b class="nc">&nbsp;            dummyDisasterItems.add(</b>
+<b class="nc">&nbsp;                DisasterItems(</b>
+<b class="nc">&nbsp;                    disasterProperties = DisasterProperties(</b>
+<b class="nc">&nbsp;                        imageUrl = null,</b>
+<b class="nc">&nbsp;                        disasterType = &quot;flood&quot;,</b>
+<b class="nc">&nbsp;                        createdAt = &quot;2023-07-26T00:00:00.000Z&quot;,</b>
+<b class="nc">&nbsp;                        source = &quot;dummy&quot;,</b>
+<b class="nc">&nbsp;                        areaId = &quot;5&quot;,</b>
+<b class="nc">&nbsp;                        geomId = &quot;3174040004009000&quot;,</b>
+<b class="nc">&nbsp;                        areaName = &quot;RW 09&quot;,</b>
+<b class="nc">&nbsp;                        parentName = &quot;GROGOL&quot;,</b>
+<b class="nc">&nbsp;                        cityName = &quot;Jakarta&quot;,</b>
+<b class="nc">&nbsp;                        state = state,</b>
+<b class="nc">&nbsp;                        lastUpdated = &quot;2016-12-19T13:53:52.274Z&quot;</b>
+&nbsp;                    )
+&nbsp;                )
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return dummyDisasterItems</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun getDummyFloodReportsItems(): List&lt;DisasterItems&gt; {
+<b class="nc">&nbsp;        val jsonDisasterFloodItems = mutableListOf&lt;DisasterItems&gt;()</b>
+<b class="nc">&nbsp;        jsonDisasterFloodItems.addAll(generateDummyDisasterFloodsItems(2, &quot;ID-SU&quot;)) // North Sumatera</b>
+<b class="nc">&nbsp;        return jsonDisasterFloodItems</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getDummyReports(): PetaBencanaReports {
+<b class="nc">&nbsp;        val additionalItems = getDummyReportsItems()</b>
+&nbsp;
+<b class="nc">&nbsp;        return PetaBencanaReports(</b>
+<b class="nc">&nbsp;            result = Result(</b>
+<b class="nc">&nbsp;                objects = Objects(</b>
+<b class="nc">&nbsp;                    output = Output(</b>
+<b class="nc">&nbsp;                        geometries = additionalItems</b>
+&nbsp;                    )
+&nbsp;                )
+&nbsp;            ),
+<b class="nc">&nbsp;            statusCode = 200</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getDummyReports(param1: String, param2: String): PetaBencanaReports {
+<b class="nc">&nbsp;        val additionalItems = when (param1) {</b>
+<b class="nc">&nbsp;            &quot;disasterFilter&quot; -&gt; getDummyReportsItems(&quot;filter&quot;, param2)</b>
+<b class="nc">&nbsp;            &quot;cityFilter&quot; -&gt; getDummyReportsItems(&quot;code&quot;, param2)</b>
+<b class="nc">&nbsp;            else -&gt; getDummyReportsItems(1, disasterType = param1, regionCode = param2)</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        return PetaBencanaReports(</b>
+<b class="nc">&nbsp;            result = Result(</b>
+<b class="nc">&nbsp;                objects = Objects(</b>
+<b class="nc">&nbsp;                    output = Output(</b>
+<b class="nc">&nbsp;                        geometries = additionalItems</b>
+&nbsp;                    )
+&nbsp;                )
+&nbsp;            ),
+<b class="nc">&nbsp;            statusCode = 200</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    fun getDummyFloodReports(): PetaBencanaReports {
+<b class="nc">&nbsp;        val additionalItems = getDummyFloodReportsItems()</b>
+&nbsp;
+<b class="nc">&nbsp;        return PetaBencanaReports(</b>
+<b class="nc">&nbsp;            statusCode = 200,</b>
+<b class="nc">&nbsp;            result = Result(</b>
+<b class="nc">&nbsp;                objects = Objects(</b>
+<b class="nc">&nbsp;                    output = Output(</b>
+<b class="nc">&nbsp;                        geometries = additionalItems</b>
+&nbsp;                    )
+&nbsp;                )
+&nbsp;            )
+&nbsp;        )
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 00:39</div>
+</div>
+</body>
+</html>
