@@ -33,3 +33,28 @@ object IdlingResourceUtils {
 
 
 }
+
+class DelayIdlingResource(private val delayMillis: Long) : IdlingResource {
+
+    private var startTime: Long = System.currentTimeMillis()
+    private var callback: IdlingResource.ResourceCallback? = null
+
+    override fun getName(): String {
+        return "DelayIdlingResource"
+    }
+
+    override fun isIdleNow(): Boolean {
+        val elapsedTime = System.currentTimeMillis() - startTime
+        val idle = elapsedTime >= delayMillis
+
+        if (idle) {
+            callback?.onTransitionToIdle()
+        }
+
+        return idle
+    }
+
+    override fun registerIdleTransitionCallback(callback: IdlingResource.ResourceCallback) {
+        this.callback = callback
+    }
+}
